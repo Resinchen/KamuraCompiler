@@ -1,0 +1,16 @@
+# Required player character #
+Character PlayerName {
+    sadly = "sprites/gg/sadly.png"
+    happy = "sprites/gg/happy.png"
+}
+
+# Another characters #
+Character Mary {
+    concerned = "sprites/mary/concerned.png"
+    happy = "sprites/mary/happy.png"
+}
+
+# Another characters without sprites #
+Character Sister
+
+### End of defines ###

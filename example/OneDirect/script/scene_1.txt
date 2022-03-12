@@ -1,0 +1,45 @@
+# Loading #
+load character PlayerName: p
+load character Mary: m
+load character Sister: s
+
+load image 'images/classroom.png'
+load image 'images/street.png'
+load sound 'sounds/bell.ogg'
+
+# Script #
+set background classroom
+set text "Moring. In the classroom"
+p (center, simple): "Borring..."
+p (right): "It`s Mary - my classmate"
+m (left, happy): "Hello {playerName}!"
+p (sadly): "Hi, Mary."
+m (center, concerned): "<b>What`s happend?</b>"
+{"Trouble in house...": counter_mary + 1, flag_date_with_mary = true;
+"Not your bisness": counter_mary - 1}
+play sound bell
+p: "Lesson is begining. Let`s go to our places"
+
+set blackout
+if flag_date_with_mary is true jump mark_go_to_date_with_mary
+if flag_date_with_mary is false and counter_mary <= 0 jump mark_go_house_alone
+
+# Date with Mary #
+mark mark_go_to_date_with_mary
+set background street
+m (left, happy): "{playerName}, thank you for today!"
+p (right, happy): "Thank you too, Mary."
+jump mark_player_in_home
+
+# Player go home alone #
+mark mark_go_house_alone
+p (center, sadly): "Maybe I didn`t say that Mary..."
+jump mark_player_in_home
+
+# Sister come home #
+mark mark_player_in_home
+s (right, happy): "Hey, {playerName}. Are you at home?"
+p (left, simple): "Yes. I am in the kitchen"
+
+# Load scene 2 with blackout #
+load_scene 'scenes/scene2.scene'

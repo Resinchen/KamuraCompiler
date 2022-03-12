@@ -1,0 +1,266 @@
+{
+    "chars":
+    [
+        {
+            "name": "PlayerName",
+            "label": "p"
+        },
+        {
+            "name": "Mary",
+            "label": "m"
+        },
+        {
+            "name": "Sister",
+            "label": "s"
+        }
+    ],
+    "files":
+    [
+        {
+            "type": "image",
+            "path": "'images/classroom.png'",
+            "name": "classroom"
+        },
+        {
+            "type": "image",
+            "path": "'images/street.png'",
+            "name": "street"
+        },
+        {
+            "type": "sound",
+            "path": "'sounds/bell.ogg'",
+            "name": "bell"
+        }
+    ],
+    "actions":
+    [
+        {
+            "type": 0,
+            "setType": 0,
+            "payload": "'images/classroom.png'"
+        },
+        {
+            "type": 0,
+            "setType": 1
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "options":
+            {
+                "position": "center",
+                "emotion": "simple"
+            },
+            "text": "\"Borring...\""
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "options":
+            {
+                "position": "right"
+            },
+            "text": "\"It`s Mary - my classmate\""
+        },
+        {
+            "type": 2,
+            "speaker": "m",
+            "options":
+            {
+                "position": "left",
+                "emotion": "happy"
+            },
+            "text": "\"Hello {playerName}!\""
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "options":
+            {
+                "emotion": "sadly"
+            },
+            "text": "\"Hi, Mary.\""
+        },
+        {
+            "type": 3,
+            "question":
+            {
+                "type": 2,
+                "speaker": "m",
+                "options":
+                {
+                    "position": "center",
+                    "emotion": "concerned"
+                },
+                "text": "\"<b>What`s happend?</b>\""
+            },
+            "variants":
+            [
+                {
+                    "text": "\"Trouble in house...\"",
+                    "effects":
+                    [
+                        {
+                            "typeEffect": "change_counter",
+                            "target": "counter_mary",
+                            "value": "1",
+                            "op": "+"
+                        },
+                        {
+                            "typeEffect": "set_flag",
+                            "target": "flag_date_with_mary",
+                            "value": "true"
+                        }
+                    ]
+                },
+                {
+                    "text": "\"Not your bisness\"",
+                    "effects":
+                    [
+                        {
+                            "typeEffect": "change_counter",
+                            "target": "counter_mary",
+                            "value": "1",
+                            "op": "-"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": 1,
+            "playType": 0,
+            "payload": "'sounds/bell.ogg'"
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "text": "\"Lesson is begining. Let`s go to our places\""
+        },
+        {
+            "type": 0,
+            "setType": 2,
+            "payload": ""
+        },
+        {
+            "type": 4,
+            "condition":
+            {
+                "type": "check_flag",
+                "target": "flag_date_with_mary",
+                "op": "is",
+                "value": "true"
+            },
+            "target":
+            {
+                "type": 5,
+                "markName": "mark_go_to_date_with_mary"
+            }
+        },
+        {
+            "type": 4,
+            "condition":
+            {
+                "leftOperand":
+                {
+                    "type": "check_flag",
+                    "target": "flag_date_with_mary",
+                    "op": "is",
+                    "value": "false"
+                },
+                "op": "and",
+                "rightOperand":
+                {
+                    "type": "check_counter",
+                    "target": "counter_mary",
+                    "op": "<=",
+                    "value": "0"
+                }
+            },
+            "target":
+            {
+                "type": 5,
+                "markName": "mark_go_house_alone"
+            }
+        },
+        {
+            "type": 6,
+            "markName": "mark_go_to_date_with_mary"
+        },
+        {
+            "type": 0,
+            "setType": 0,
+            "payload": "'images/street.png'"
+        },
+        {
+            "type": 2,
+            "speaker": "m",
+            "options":
+            {
+                "position": "left",
+                "emotion": "happy"
+            },
+            "text": "\"{playerName}, thank you for today!\""
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "options":
+            {
+                "position": "right",
+                "emotion": "happy"
+            },
+            "text": "\"Thank you too, Mary.\""
+        },
+        {
+            "type": 5,
+            "markName": "mark_player_in_home"
+        },
+        {
+            "type": 6,
+            "markName": "mark_go_house_alone"
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "options":
+            {
+                "position": "center",
+                "emotion": "sadly"
+            },
+            "text": "\"Maybe I didn`t say that Mary...\""
+        },
+        {
+            "type": 5,
+            "markName": "mark_player_in_home"
+        },
+        {
+            "type": 6,
+            "markName": "mark_player_in_home"
+        },
+        {
+            "type": 2,
+            "speaker": "s",
+            "options":
+            {
+                "position": "right",
+                "emotion": "happy"
+            },
+            "text": "\"Hey, {playerName}. Are you at home?\""
+        },
+        {
+            "type": 2,
+            "speaker": "p",
+            "options":
+            {
+                "position": "left",
+                "emotion": "simple"
+            },
+            "text": "\"Yes. I am in the kitchen\""
+        },
+        {
+            "type": 7,
+            "pathScene": "'scenes/scene2.scene'"
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+[
+  {
+    "name": "PlayerName",
+    "sprites": {},
+    "spritesJSON": [
+      {
+        "field": "adly",
+        "path": "\"sprites/gg/sadly.png\""
+      },
+      {
+        "field": "appy",
+        "path": "\"sprites/gg/happy.png\""
+      }
+    ]
+  },
+  {
+    "name": "Mary",
+    "sprites": {},
+    "spritesJSON": [
+      {
+        "field": "oncerned",
+        "path": "\"sprites/mary/concerned.png\""
+      },
+      {
+        "field": "appy",
+        "path": "\"sprites/mary/happy.png\""
+      }
+    ]
+  },
+  {
+    "name": "Sister"
+  }
+]

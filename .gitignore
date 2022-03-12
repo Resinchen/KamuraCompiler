@@ -130,3 +130,5 @@ dmypy.json
 
 # User files
 tmp_*.py
+
+.idea/

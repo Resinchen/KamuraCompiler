@@ -5,7 +5,7 @@ description = ""
 authors = ["Resinchen <alex1410alex@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.10.1"

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, NewType, Optional
+from typing import Any, Callable, NewType
 
 from lrparser.utils.parser import Attribute, State
 
@@ -79,8 +79,8 @@ class ActionColumnDescriptor(ColumnDescriptor):
     type: ActionType
     from_state: str
     to_state: str
-    count_args: Optional[int] = None
-    func: Optional[Callable[[Any], Any]] = None
+    count_args: int | None = None
+    func: Callable[[Any], Any] | None = None
 
     @classmethod
     def from_json(cls, data: dict):

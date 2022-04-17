@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
-from typing import Callable, Union
+from typing import Callable
 
-_SimpleTypes = Union[str, int, bool]
-Attribute = Union[_SimpleTypes, list[_SimpleTypes]]
+_SimpleTypes = str | int | bool
+Attribute = _SimpleTypes | list[_SimpleTypes]
 
 
 @dataclass
@@ -50,4 +50,4 @@ class Reduce:
         return state
 
 
-Action = Union[Shift, Finish, Reduce]
+Action = Shift | Finish | Reduce

@@ -15,8 +15,7 @@ def reader_config(filepath: str) -> dict:
 
 
 def parse_tokens(data) -> list[TokenType]:
-    tokens = [TokenType.from_json(token) for token in data["tokens"]]
-    return tokens
+    return [TokenType.from_json(token) for token in data["tokens"]]
 
 
 def parse_actions(data, funcs: dict) -> ActionTableDescriptor:
@@ -32,5 +31,4 @@ def parse_actions(data, funcs: dict) -> ActionTableDescriptor:
 
 
 def parse_goto(data) -> GotoTableDescriptor:
-    goto = GotoTableDescriptor.from_json(data["goto"])
-    return goto
+    return GotoTableDescriptor.from_json(data["goto"])

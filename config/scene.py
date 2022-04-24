@@ -1,7 +1,7 @@
 from config.reader import parse_actions, parse_goto, parse_tokens, reader_config
 from lrparser.utils.table_descriptor import ReduceFunc
 
-prepareResult: ReduceFunc = lambda LL, AL: {
+prepare_result: ReduceFunc = lambda LL, AL: {
     "res": {
         "chars": LL.get("chars"),
         "files": LL.get("files"),
@@ -9,88 +9,88 @@ prepareResult: ReduceFunc = lambda LL, AL: {
     }
 }
 
-updateLoadlist: ReduceFunc = lambda LL, L: {
+update_loadlist: ReduceFunc = lambda LL, L: {
     "chars": [*LL.get("chars"), L.get("char")],
     "files": [*LL.get("files"), L.get("file")],
 }
-createLoadlist: ReduceFunc = lambda L1, L2: {
+create_loadlist: ReduceFunc = lambda L1, L2: {
     "chars": [L1.get("char"), L2.get("char")],
     "files": [L1.get("file"), L2.get("file")],
 }
 
-updateActionlist: ReduceFunc = lambda AL, A: {
+update_actionlist: ReduceFunc = lambda AL, A: {
     "list": [*AL.get("list"), A.get("action")]
 }
-createActionlist: ReduceFunc = lambda A1, A2: {
+create_actionlist: ReduceFunc = lambda A1, A2: {
     "list": [A1.get("action"), A2.get("action")]
 }
 
-makeActionFromSet: ReduceFunc = lambda S: {"action": S.get("set")}
-makeActionFromPlay: ReduceFunc = lambda P: {"action": P.get("play")}
-makeActionFromPhrase: ReduceFunc = lambda P: {"action": P.get("phrase")}
-makeActionFromChoice: ReduceFunc = lambda C: {"action": C.get("choice")}
-makeActionFromVarle: ReduceFunc = lambda C: {"action": C.get("varle")}
-makeActionFromJump: ReduceFunc = lambda J: {"action": J.get("jump")}
-makeActionFromMark: ReduceFunc = lambda M: {"action": M.get("mark")}
-makeActionFromLoadscene: ReduceFunc = lambda L: {"action": L.get("next_scene")}
+make_action_from_set: ReduceFunc = lambda S: {"action": S.get("set")}
+make_action_from_play: ReduceFunc = lambda P: {"action": P.get("play")}
+make_action_from_phrase: ReduceFunc = lambda P: {"action": P.get("phrase")}
+make_action_from_choice: ReduceFunc = lambda C: {"action": C.get("choice")}
+make_action_from_varle: ReduceFunc = lambda C: {"action": C.get("varle")}
+make_action_from_jump: ReduceFunc = lambda J: {"action": J.get("jump")}
+make_action_from_mark: ReduceFunc = lambda M: {"action": M.get("mark")}
+make_action_from_loadscene: ReduceFunc = lambda L: {"action": L.get("next_scene")}
 
-createLoad: ReduceFunc = lambda l, W: {"char": W.get("char"), "file": W.get("file")}
-createSet: ReduceFunc = lambda s, W: {
+create_load: ReduceFunc = lambda l, W: {"char": W.get("char"), "file": W.get("file")}
+create_set: ReduceFunc = lambda s, W: {
     "set": {"type": W.get("type"), "payload": W.get("info")}
 }
-createPlay: ReduceFunc = lambda p, W: {
+create_play: ReduceFunc = lambda p, W: {
     "play": {"type": W.get("type"), "payload": W.get("info")}
 }
-createPhrase: ReduceFunc = lambda l, O, s, w: {
+create_phrase: ReduceFunc = lambda l, O, s, w: {
     "phrase": {"speaker": l.get("val"), "options": O.get("opt"), "text": w.get("val")}
 }
-createPhraseWithoutOptions: ReduceFunc = lambda l, s, w: {
+create_phrase_without_options: ReduceFunc = lambda l, s, w: {
     "phrase": {"speaker": l.get("val"), "text": w.get("val")}
 }
-createChoice: ReduceFunc = lambda P, V: {
+create_choice: ReduceFunc = lambda P, V: {
     "choice": {"question": P.get("phrase"), "variants": V.get("list")}
 }
-createVarle: ReduceFunc = lambda i, C, J: {
+create_varle: ReduceFunc = lambda i, C, J: {
     "varle": {"condition": C.get("bool_list"), "target": J.get("jump")}
 }
-createJump: ReduceFunc = lambda j, mn: {"jump": {"markName": mn.get("val")}}
-createMark: ReduceFunc = lambda m, mn: {"mark": {"markName": mn.get("val")}}
-createLoadscene: ReduceFunc = lambda l, p: {"next_scene": {"pathScene": p.get("val")}}
+create_jump: ReduceFunc = lambda j, mn: {"jump": {"markName": mn.get("val")}}
+create_mark: ReduceFunc = lambda m, mn: {"mark": {"markName": mn.get("val")}}
+create_loadscene: ReduceFunc = lambda l, p: {"next_scene": {"pathScene": p.get("val")}}
 
-createVarlist: ReduceFunc = lambda V: {"list": V.get("variant")}
-updateVarlist: ReduceFunc = lambda VL, s, V: {
+create_varlist: ReduceFunc = lambda V: {"list": V.get("variant")}
+update_varlist: ReduceFunc = lambda VL, s, V: {
     "list": [*VL.get("list"), V.get("variant")]
 }
 
-createVariants: ReduceFunc = lambda op, VL, cl: {"list": VL.get("list")}
-createVariantSingleEffect: ReduceFunc = lambda w, s, E: {
+create_variants: ReduceFunc = lambda op, VL, cl: {"list": VL.get("list")}
+create_variant_single_effect: ReduceFunc = lambda w, s, E: {
     "variant": {"text": w.get("val"), "effects": [E.get("effect")]}
 }
-createVariantMultiEffect: ReduceFunc = lambda w, s, EL: {
+create_variant_multi_effect: ReduceFunc = lambda w, s, EL: {
     "variant": {"text": w.get("val"), "effects": EL.get("list")}
 }
 
-createEffectList: ReduceFunc = lambda E1, c, E2: {
+create_effect_list: ReduceFunc = lambda E1, c, E2: {
     "list": [E1.get("effect"), E2.get("effect")]
 }
-createEffectFlag: ReduceFunc = lambda f, e, b: {
+create_effect_flag: ReduceFunc = lambda f, e, b: {
     "effect": {"set_flag", f.get("val"), b.get("val")}
 }
-createEffectCounter: ReduceFunc = lambda cn, op, d: {
+create_effect_counter: ReduceFunc = lambda cn, op, d: {
     "effect": {"change_counter", cn.get("val"), d.get("val"), op.get("val")}
 }
 
-createOptionsPosition: ReduceFunc = lambda o, p, c: {
+create_options_position: ReduceFunc = lambda o, p, c: {
     "opt": {"pos": p.get("val"), "emo": None}
 }
-createOptionsEmotion: ReduceFunc = lambda o, e, c: {
+create_options_emotion: ReduceFunc = lambda o, e, c: {
     "opt": {"pos": None, "emo": e.get("val")}
 }
-createOptionsPositionAndEmotion: ReduceFunc = lambda o, p, c, e, cl: {
+create_options_position_and_emotion: ReduceFunc = lambda o, p, c, e, cl: {
     "opt": {"pos": p.get("val"), "emo": e.get("val")}
 }
 
-createConditionCounter: ReduceFunc = lambda cn, bo, d: {
+create_condition_counter: ReduceFunc = lambda cn, bo, d: {
     "boollist": {
         "type": "check_counter",
         "left": cn.get("val"),
@@ -98,7 +98,7 @@ createConditionCounter: ReduceFunc = lambda cn, bo, d: {
         "right": d.get("val"),
     }
 }
-createConditionFlag: ReduceFunc = lambda f, i, b: {
+create_condition_flag: ReduceFunc = lambda f, i, b: {
     "boollist": {
         "type": "check_flag",
         "left": f.get("val"),
@@ -106,81 +106,84 @@ createConditionFlag: ReduceFunc = lambda f, i, b: {
         "right": b.get("val"),
     }
 }
-createConditionAnd: ReduceFunc = lambda C1, a, C2: {
+create_condition_and: ReduceFunc = lambda C1, a, C2: {
     "boollist": {"left": C1.get("boollist"), "op": "and", "right": C2.get("boollist")}
 }
-createConditionOr: ReduceFunc = lambda C1, o, C2: {
+create_condition_or: ReduceFunc = lambda C1, o, C2: {
     "boollist": {{"left": C1.get("boollist"), "op": "or", "right": C2.get("boollist")}}
 }
-createConditionNot: ReduceFunc = lambda n, C: {
+create_condition_not: ReduceFunc = lambda n, C: {
     "boollist": {{"left": None, "op": "not", "right": C.get("boollist")}}
 }
 
-createSetBackground: ReduceFunc = lambda b, n: {
+create_set_background: ReduceFunc = lambda b, n: {
     "type": "set_background",
     "info": n.get("val"),
 }
-createSetText: ReduceFunc = lambda t, w: {"type": "set_text", "info": w.get("val")}
-createSetBlackout: ReduceFunc = lambda b: {"type": "set_blackout"}
-createPlaySound: ReduceFunc = lambda s, n: {"type": "play_sound", "info": n.get("val")}
+create_set_text: ReduceFunc = lambda t, w: {"type": "set_text", "info": w.get("val")}
+create_set_blackout: ReduceFunc = lambda b: {"type": "set_blackout"}
+create_play_sound: ReduceFunc = lambda s, n: {
+    "type": "play_sound",
+    "info": n.get("val"),
+}
 
-createLoadCharacter: ReduceFunc = lambda c, n, s, l: {
+create_load_character: ReduceFunc = lambda c, n, s, l: {
     "char": {"name": n.get("val"), "label": l.get("val")}
 }
-createLoadImage: ReduceFunc = lambda s, p: {
+create_load_image: ReduceFunc = lambda s, p: {
     "file": {"type": "image", "path": p.get("val")}
 }
-createLoadSound: ReduceFunc = lambda s, p: {
+create_load_sound: ReduceFunc = lambda s, p: {
     "file": {"type": "image", "path": p.get("val")}
 }
 
 funcs: dict[str, ReduceFunc] = {
-    "prepareResult": prepareResult,
-    "updateLoadlist": updateLoadlist,
-    "createLoadlist": createLoadlist,
-    "updateActionlist": updateActionlist,
-    "createActionlist": createActionlist,
-    "makeActionFromSet": makeActionFromSet,
-    "makeActionFromPlay": makeActionFromPlay,
-    "makeActionFromPhrase": makeActionFromPhrase,
-    "makeActionFromChoice": makeActionFromChoice,
-    "makeActionFromVarle": makeActionFromVarle,
-    "makeActionFromJump": makeActionFromJump,
-    "makeActionFromMark": makeActionFromMark,
-    "makeActionFromLoadscene": makeActionFromLoadscene,
-    "createLoad": createLoad,
-    "createSet": createSet,
-    "createPlay": createPlay,
-    "createPhrase": createPhrase,
-    "createPhraseWithoutOptions": createPhraseWithoutOptions,
-    "createChoice": createChoice,
-    "createVarle": createVarle,
-    "createJump": createJump,
-    "createMark": createMark,
-    "createLoadscene": createLoadscene,
-    "createVarlist": createVarlist,
-    "updateVarlist": updateVarlist,
-    "createVariants": createVariants,
-    "createVariantSingleEffect": createVariantSingleEffect,
-    "createVariantMultiEffect": createVariantMultiEffect,
-    "createEffectList": createEffectList,
-    "createEffectFlag": createEffectFlag,
-    "createEffectCounter": createEffectCounter,
-    "createOptionsPosition": createOptionsPosition,
-    "createOptionsEmotion": createOptionsEmotion,
-    "createOptionsPositionAndEmotion": createOptionsPositionAndEmotion,
-    "createConditionCounter": createConditionCounter,
-    "createConditionFlag": createConditionFlag,
-    "createConditionAnd": createConditionAnd,
-    "createConditionOr": createConditionOr,
-    "createConditionNot": createConditionNot,
-    "createSetBackground": createSetBackground,
-    "createSetText": createSetText,
-    "createSetBlackout": createSetBlackout,
-    "createPlaySound": createPlaySound,
-    "createLoadCharacter": createLoadCharacter,
-    "createLoadImage": createLoadImage,
-    "createLoadSound": createLoadSound,
+    "prepareResult": prepare_result,
+    "updateLoadlist": update_loadlist,
+    "createLoadlist": create_loadlist,
+    "updateActionlist": update_actionlist,
+    "createActionlist": create_actionlist,
+    "makeActionFromSet": make_action_from_set,
+    "makeActionFromPlay": make_action_from_play,
+    "makeActionFromPhrase": make_action_from_phrase,
+    "makeActionFromChoice": make_action_from_choice,
+    "makeActionFromVarle": make_action_from_varle,
+    "makeActionFromJump": make_action_from_jump,
+    "makeActionFromMark": make_action_from_mark,
+    "makeActionFromLoadscene": make_action_from_loadscene,
+    "createLoad": create_load,
+    "createSet": create_set,
+    "createPlay": create_play,
+    "createPhrase": create_phrase,
+    "createPhraseWithoutOptions": create_phrase_without_options,
+    "createChoice": create_choice,
+    "createVarle": create_varle,
+    "createJump": create_jump,
+    "createMark": create_mark,
+    "createLoadscene": create_loadscene,
+    "createVarlist": create_varlist,
+    "updateVarlist": update_varlist,
+    "createVariants": create_variants,
+    "createVariantSingleEffect": create_variant_single_effect,
+    "createVariantMultiEffect": create_variant_multi_effect,
+    "createEffectList": create_effect_list,
+    "createEffectFlag": create_effect_flag,
+    "createEffectCounter": create_effect_counter,
+    "createOptionsPosition": create_options_position,
+    "createOptionsEmotion": create_options_emotion,
+    "createOptionsPositionAndEmotion": create_options_position_and_emotion,
+    "createConditionCounter": create_condition_counter,
+    "createConditionFlag": create_condition_flag,
+    "createConditionAnd": create_condition_and,
+    "createConditionOr": create_condition_or,
+    "createConditionNot": create_condition_not,
+    "createSetBackground": create_set_background,
+    "createSetText": create_set_text,
+    "createSetBlackout": create_set_blackout,
+    "createPlaySound": create_play_sound,
+    "createLoadCharacter": create_load_character,
+    "createLoadImage": create_load_image,
+    "createLoadSound": create_load_sound,
 }
 
 json_config = reader_config("config/scene_config.json")

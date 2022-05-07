@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Callable
 
+from lrparser.utils.tokenizer import Token
+
 _SimpleTypes = str | int | bool
 Attribute = _SimpleTypes | list[_SimpleTypes]
 
@@ -25,6 +27,12 @@ class Shift:
     from_state: State
     to_state: State
     type: str = "SHIFT"
+
+    def execute(self, lookahead: Token) -> State:
+        new_state: State = self.to_state
+        if lookahead.value:
+            new_state.attributes["val"] = lookahead.value
+        return new_state
 
 
 @dataclass

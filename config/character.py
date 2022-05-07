@@ -1,5 +1,5 @@
 from config.reader import parse_actions, parse_goto, parse_tokens, reader_config
-from lrparser.utils.table_descriptor import ReduceFunc
+from lrparser.utils.action_table_descriptor import ReduceFunc
 
 update_character_list: ReduceFunc = lambda CS, C: {
     "list": [*CS.get("list"), C.get("char")]

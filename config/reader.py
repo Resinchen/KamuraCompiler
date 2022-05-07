@@ -1,11 +1,8 @@
 import json
 from typing import cast
 
-from lrparser.utils.table_descriptor import (
-    ActionColumnDescriptor,
-    ActionTableDescriptor,
-    GotoTableDescriptor,
-)
+from lrparser.utils.action_table_descriptor import ActionTableDescriptor, ActionColumnDescriptor
+from lrparser.utils.goto_table_descriptor import GotoTableDescriptor
 from lrparser.utils.tokenizer import TokenType
 
 

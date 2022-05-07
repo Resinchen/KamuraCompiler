@@ -16,7 +16,9 @@ class ParserBlock:
 class Compiler:
     def __init__(self):
         self.parsers: dict[str, ParserBlock] = {
-            "char": ParserBlock(character.tokens, character.actions, character.goto),
+            "char": ParserBlock(
+                character.tokens, character.actions, character.goto
+            ),
             "scene": ParserBlock(scene.tokens, scene.actions, scene.goto),
         }
 
@@ -34,9 +36,13 @@ class Compiler:
 
     def _get_files(self, script_path: str) -> tuple[str, list[str]]:
         filenames = os.listdir(script_path)
-        filenames = [self._get_abspath(filepath, script_path) for filepath in filenames]
+        filenames = [
+            self._get_abspath(filepath, script_path) for filepath in filenames
+        ]
 
-        char_filename = [filename for filename in filenames if "chars" in filename][0]
+        char_filename = [
+            filename for filename in filenames if "chars" in filename
+        ][0]
         scene_filenames = [
             filename for filename in filenames if filename != char_filename
         ]
@@ -46,9 +52,13 @@ class Compiler:
     def _get_abspath(self, filepath: str, script_path: str) -> str:
         return path.join(path.abspath(script_path), filepath)
 
-    def _compile_character_file(self, filepath: str, output_folder: str) -> None:
+    def _compile_character_file(
+        self, filepath: str, output_folder: str
+    ) -> None:
         output_filepath = path.abspath(
-            path.join(output_folder, path.basename(filepath).replace(".txt", ".json"))
+            path.join(
+                output_folder, path.basename(filepath).replace(".txt", ".json")
+            )
         )
         result = self._compile_file("char", filepath)
 
@@ -57,7 +67,9 @@ class Compiler:
 
     def _compile_scene_file(self, filepath: str, output_folder: str) -> None:
         output_filepath = path.abspath(
-            path.join(output_folder, path.basename(filepath).replace(".txt", ".json"))
+            path.join(
+                output_folder, path.basename(filepath).replace(".txt", ".json")
+            )
         )
         result = self._compile_file("scene", filepath)
 

@@ -30,4 +30,6 @@ class Tokenizer:
 
                 return Token(token, value)
         else:
-            raise LRSyntaxError(f"Can`t get token by pos {self._current_position}")
+            raise LRSyntaxError(
+                f"Can`t get token by pos {self._current_position}"
+            )

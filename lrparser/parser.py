@@ -1,20 +1,11 @@
 from collections import deque
 from typing import cast
 
+from lrparser.utils.action_table_descriptor import ActionTableDescriptor
 from lrparser.utils.exceptions import LRParserError
-from lrparser.utils.parser import (
-    Action,
-    Attribute,
-    Finish,
-    Reduce,
-    Shift,
-    State,
-)
+from lrparser.utils.goto_table_descriptor import GotoTableDescriptor
+from lrparser.utils.parser import Action, Attribute, Reduce, State
 from lrparser.utils.table import ActionTable, GotoTable, Terminal
-from lrparser.utils.table_descriptor import (
-    ActionTableDescriptor,
-    GotoTableDescriptor,
-)
 from lrparser.utils.tokenizer import Token
 
 
@@ -36,27 +27,20 @@ class Parser:
             cell: Action = self._actions.get(
                 current_state, Terminal(lookahead.type.name)
             )
-            if isinstance(cell, Shift):
-                self._stack.extend(
-                    [current_state, self._execute_shift(cast(Shift, cell), lookahead)]
-                )
-                tokens.popleft()
-            elif isinstance(cell, Reduce):
-                self._stack.extend(
-                    self._execute_reduce(cast(Reduce, cell), current_state)
-                )
-            elif isinstance(cell, Finish):
-                return current_state.attributes.get("res")
-            else:
-                raise LRParserError(f"Unexpected state: {current_state}")
+            match cell.type:
+                case 'SHIFT':
+                    self._stack.extend([current_state, cell.execute(lookahead)])
+                    tokens.popleft()
+                case 'REDUCE':
+                    self._stack.extend(self._execute_reduce(cast(Reduce, cell), current_state))
+                case 'FINISH':
+                    return current_state.attributes.get("res")
+                case _:
+                    raise LRParserError(f"Unexpected state: {current_state}")
 
-    def _execute_shift(self, cell: Shift, lookahead: Token) -> State:
-        new_state: State = cell.to_state
-        if lookahead.value:
-            new_state.attributes["val"] = lookahead.value
-        return new_state
-
-    def _execute_reduce(self, cell: Reduce, current_state: State) -> list[State]:
+    def _execute_reduce(
+        self, cell: Reduce, current_state: State
+    ) -> list[State]:
         reduce_args = [current_state] + [
             self._stack.pop() for _ in range(cell.count_args - 1)
         ]

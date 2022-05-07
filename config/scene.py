@@ -1,5 +1,5 @@
 from config.reader import parse_actions, parse_goto, parse_tokens, reader_config
-from lrparser.utils.table_descriptor import ReduceFunc
+from lrparser.utils.action_table_descriptor import ReduceFunc
 
 prepare_result: ReduceFunc = lambda LL, AL: {
     "res": {
@@ -32,9 +32,14 @@ make_action_from_choice: ReduceFunc = lambda C: {"action": C.get("choice")}
 make_action_from_varle: ReduceFunc = lambda C: {"action": C.get("varle")}
 make_action_from_jump: ReduceFunc = lambda J: {"action": J.get("jump")}
 make_action_from_mark: ReduceFunc = lambda M: {"action": M.get("mark")}
-make_action_from_loadscene: ReduceFunc = lambda L: {"action": L.get("next_scene")}
+make_action_from_loadscene: ReduceFunc = lambda L: {
+    "action": L.get("next_scene")
+}
 
-create_load: ReduceFunc = lambda l, W: {"char": W.get("char"), "file": W.get("file")}
+create_load: ReduceFunc = lambda l, W: {
+    "char": W.get("char"),
+    "file": W.get("file"),
+}
 create_set: ReduceFunc = lambda s, W: {
     "set": {"type": W.get("type"), "payload": W.get("info")}
 }
@@ -42,7 +47,11 @@ create_play: ReduceFunc = lambda p, W: {
     "play": {"type": W.get("type"), "payload": W.get("info")}
 }
 create_phrase: ReduceFunc = lambda l, O, s, w: {
-    "phrase": {"speaker": l.get("val"), "options": O.get("opt"), "text": w.get("val")}
+    "phrase": {
+        "speaker": l.get("val"),
+        "options": O.get("opt"),
+        "text": w.get("val"),
+    }
 }
 create_phrase_without_options: ReduceFunc = lambda l, s, w: {
     "phrase": {"speaker": l.get("val"), "text": w.get("val")}
@@ -55,7 +64,9 @@ create_varle: ReduceFunc = lambda i, C, J: {
 }
 create_jump: ReduceFunc = lambda j, mn: {"jump": {"markName": mn.get("val")}}
 create_mark: ReduceFunc = lambda m, mn: {"mark": {"markName": mn.get("val")}}
-create_loadscene: ReduceFunc = lambda l, p: {"next_scene": {"pathScene": p.get("val")}}
+create_loadscene: ReduceFunc = lambda l, p: {
+    "next_scene": {"pathScene": p.get("val")}
+}
 
 create_varlist: ReduceFunc = lambda V: {"list": V.get("variant")}
 update_varlist: ReduceFunc = lambda VL, s, V: {
@@ -107,10 +118,16 @@ create_condition_flag: ReduceFunc = lambda f, i, b: {
     }
 }
 create_condition_and: ReduceFunc = lambda C1, a, C2: {
-    "boollist": {"left": C1.get("boollist"), "op": "and", "right": C2.get("boollist")}
+    "boollist": {
+        "left": C1.get("boollist"),
+        "op": "and",
+        "right": C2.get("boollist"),
+    }
 }
 create_condition_or: ReduceFunc = lambda C1, o, C2: {
-    "boollist": {{"left": C1.get("boollist"), "op": "or", "right": C2.get("boollist")}}
+    "boollist": {
+        {"left": C1.get("boollist"), "op": "or", "right": C2.get("boollist")}
+    }
 }
 create_condition_not: ReduceFunc = lambda n, C: {
     "boollist": {{"left": None, "op": "not", "right": C.get("boollist")}}
@@ -120,7 +137,10 @@ create_set_background: ReduceFunc = lambda b, n: {
     "type": "set_background",
     "info": n.get("val"),
 }
-create_set_text: ReduceFunc = lambda t, w: {"type": "set_text", "info": w.get("val")}
+create_set_text: ReduceFunc = lambda t, w: {
+    "type": "set_text",
+    "info": w.get("val"),
+}
 create_set_blackout: ReduceFunc = lambda b: {"type": "set_blackout"}
 create_play_sound: ReduceFunc = lambda s, n: {
     "type": "play_sound",

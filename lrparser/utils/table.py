@@ -1,15 +1,10 @@
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
+from lrparser.utils.abstract_table_descriptor import TableDescriptor, RowDescriptor
+from lrparser.utils.action_table_descriptor import ActionType, ActionColumnDescriptor, ActionRowDescriptor
+from lrparser.utils.goto_table_descriptor import GotoRowDescriptor
 from lrparser.utils.parser import Action, Finish, Reduce, Shift, State
-from lrparser.utils.table_descriptor import (
-    ActionColumnDescriptor,
-    ActionRowDescriptor,
-    ActionType,
-    GotoRowDescriptor,
-    RowDescriptor,
-    TableDescriptor,
-)
 
 R = TypeVar("R")
 C = TypeVar("C")
@@ -68,7 +63,8 @@ class ActionTable(Table[State, Terminal, Action]):
     def _get_action(self, action_descriptor: ActionColumnDescriptor) -> Action:
         if action_descriptor.type == ActionType.SHIFT:
             return Shift(
-                State(action_descriptor.from_state), State(action_descriptor.to_state)
+                State(action_descriptor.from_state),
+                State(action_descriptor.to_state),
             )
         elif action_descriptor.type == ActionType.REDUCE:
             return Reduce(
@@ -79,7 +75,8 @@ class ActionTable(Table[State, Terminal, Action]):
             )
         elif action_descriptor.type == ActionType.FINISH:
             return Finish(
-                State(action_descriptor.from_state), State(action_descriptor.to_state)
+                State(action_descriptor.from_state),
+                State(action_descriptor.to_state),
             )
         else:
             raise NotImplementedError()

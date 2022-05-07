@@ -6,6 +6,9 @@ authors = ["Resinchen <alex1410alex@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pytest-cov = "^3.0.0"
+lrparser = {path = "lrparser/dist/lrparser-1.0.tar.gz"}
+
 
 [tool.poetry.dev-dependencies]
 isort = "^5.10.1"
@@ -17,3 +20,30 @@ flake8-awesome = "^1.3.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+include_trailing_comma = true
+line_length = 80
+multi_line_output = 3
+
+[tool.black]
+target-version = ['py310']
+line-length = 80
+
+[tool.pytest.ini_options]
+addopts = "-vv"
+testpaths = "tests"
+python_files = ["test_*.py"]
+python_classes = ["*Test", "Test*"]
+python_functions = ["test_*"]
+pythonpath = ["."]
+xfail_strict=true
+
+[tool.coverage.run]
+omit = [
+    "**/__init__.py",
+    "*_cache/*",
+    ".pytest_cache"
+]

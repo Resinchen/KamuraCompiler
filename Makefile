@@ -10,4 +10,4 @@ init:
 lint:
 	isort CODE
 	black CODE
-	flake8 CODE
+	flake8 CODE --jobs 4 --statistics

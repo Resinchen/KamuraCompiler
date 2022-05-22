@@ -4,16 +4,12 @@ from lrparser.utils.action_table_descriptor import ReduceFunc
 update_character_list: ReduceFunc = lambda CS, C: {
     "list": [*CS.get("list"), C.get("char")]
 }
-create_character_list: ReduceFunc = lambda CC: {
-    "list": [CC.get("char")]
-}
+create_character_list: ReduceFunc = lambda CC: {"list": [CC.get("char")]}
 
 update_sprite_list: ReduceFunc = lambda SS, S: {
     "list": [*SS.get("list"), S.get("sprite")]
 }
-create_sprite_list: ReduceFunc = lambda S: {
-    "list": [S.get("sprite")]
-}
+create_sprite_list: ReduceFunc = lambda S: {"list": [S.get("sprite")]}
 
 create_character_without_sprites: ReduceFunc = lambda c, n: {
     "char": {"name": n.get("val")}
@@ -26,9 +22,7 @@ wrap_character_without_sprites: ReduceFunc = lambda CNS: {
     "char": CNS.get("char")
 }
 
-wrap_character: ReduceFunc = lambda C: {
-    "char": C.get("char")
-}
+wrap_character: ReduceFunc = lambda C: {"char": C.get("char")}
 
 create_sprite: ReduceFunc = lambda t, f, e, p: {
     "sprite": {"field": f.get("val"), "path": p.get("val")[1:-1]}

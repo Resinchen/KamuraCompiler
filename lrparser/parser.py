@@ -28,12 +28,14 @@ class Parser:
                 current_state, Terminal(lookahead.type.name)
             )
             match cell.type:
-                case 'SHIFT':
+                case "SHIFT":
                     self._stack.extend([current_state, cell.execute(lookahead)])
                     tokens.popleft()
-                case 'REDUCE':
-                    self._stack.extend(self._execute_reduce(cast(Reduce, cell), current_state))
-                case 'FINISH':
+                case "REDUCE":
+                    self._stack.extend(
+                        self._execute_reduce(cast(Reduce, cell), current_state)
+                    )
+                case "FINISH":
                     return current_state.attributes.get("res")
                 case _:
                     raise LRParserError(f"Unexpected state: {current_state}")

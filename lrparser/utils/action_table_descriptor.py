@@ -1,8 +1,12 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import NewType, Callable, Any
+from typing import Any, Callable, NewType
 
-from lrparser.utils.abstract_table_descriptor import ColumnDescriptor, RowDescriptor, TableDescriptor
+from lrparser.utils.abstract_table_descriptor import (
+    ColumnDescriptor,
+    RowDescriptor,
+    TableDescriptor,
+)
 from lrparser.utils.parser import Attribute, State
 
 

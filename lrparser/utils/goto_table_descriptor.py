@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 
-from lrparser.utils.abstract_table_descriptor import ColumnDescriptor, RowDescriptor, TableDescriptor
+from lrparser.utils.abstract_table_descriptor import (
+    ColumnDescriptor,
+    RowDescriptor,
+    TableDescriptor,
+)
 
 
 @dataclass

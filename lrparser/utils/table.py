@@ -1,8 +1,15 @@
 from dataclasses import dataclass
 from typing import Generic, TypeVar
 
-from lrparser.utils.abstract_table_descriptor import TableDescriptor, RowDescriptor
-from lrparser.utils.action_table_descriptor import ActionType, ActionColumnDescriptor, ActionRowDescriptor
+from lrparser.utils.abstract_table_descriptor import (
+    RowDescriptor,
+    TableDescriptor,
+)
+from lrparser.utils.action_table_descriptor import (
+    ActionColumnDescriptor,
+    ActionRowDescriptor,
+    ActionType,
+)
 from lrparser.utils.goto_table_descriptor import GotoRowDescriptor
 from lrparser.utils.parser import Action, Finish, Reduce, Shift, State
 

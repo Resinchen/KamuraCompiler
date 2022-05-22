@@ -11,13 +11,14 @@ class Tokenizer:
         self._token_types: list[TokenType] = token_types
 
     def tokenize(self, text: str) -> list[Token]:
+        text = text.replace('    ', '\t')
         tokens: list[Token] = []
         while text[self._current_position :] != "":
             candidate = self._get_token(text[self._current_position :])
             if candidate.type.name in ("None", "comment"):
                 continue
             tokens.append(candidate)
-        tokens.append(Token(TokenType("eof", re.compile("")), "eof"))
+        tokens.extend([Token(TokenType("end", re.compile("")), "end"), Token(TokenType("eof", re.compile("")), "eof")])
 
         return tokens
 

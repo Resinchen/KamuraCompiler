@@ -1,5 +1,381 @@
 {
-  "tokens":[{"name":"None","pattern":"[ \n\t\r]+"},{"name":"open","pattern":"{"},{"name":"close","pattern":"}"},{"name":"equals","pattern":"="},{"name":"character","pattern":"Character"},{"name":"end","pattern":"### End of defines ###"},{"name":"name","pattern":"playerName"},{"name":"path","pattern":"\"[\\w\\d./\\ ]*\""},{"name":"comment","pattern":"#[\\w\\d ]*#"},{"name":"name","pattern":"[\\w]+"}],
-  "actions":[{"state":"DOWN","items":[{"type":0,"from_state":"character","to_state":"character"}]},{"state":"MAIN","items":[{"type":2,"from_state":"eof","to_state":"ok"}]},{"state":"CHARACTERS","items":[{"type":0,"from_state":"character","to_state":"character"},{"type":0,"from_state":"end","to_state":"end"}]},{"state":"CHARACTER1","items":[{"type":0,"from_state":"character","to_state":"character"}]},{"state":"CHARACTER2","items":[{"type":1,"from_state":"character","to_state":"CHARACTERS","count_args":2,"func":"updateCharacterList"},{"type":1,"from_state":"end","to_state":"CHARACTERS","count_args":2,"func":"updateCharacterList"}]},{"state":"CHARACTER3","items":[{"type":1,"from_state":"character","to_state":"CHARACTERS","count_args":2,"func":"createCharacterList"},{"type":1,"from_state":"end","to_state":"CHARACTERS","count_args":2,"func":"createCharacterList"}]},{"state":"SPRITES","items":[{"type":0,"from_state":"character","to_state":"field"},{"type":0,"from_state":"close","to_state":"}"}]},{"state":"SPRITE1","items":[{"type":0,"from_state":"name","to_state":"field"}]},{"state":"SPRITE2","items":[{"type":1,"from_state":"field","to_state":"SPRITES","count_args":2,"func":"updateSpriteList"},{"type":1,"from_state":"close","to_state":"SPRITES","count_args":2,"func":"updateSpriteList"}]},{"state":"SPRITE3","items":[{"type":1,"from_state":"field","to_state":"SPRITES","count_args":2,"func":"createSpriteList"},{"type":1,"from_state":"close","to_state":"SPRITES","count_args":2,"func":"createSpriteList"}]},{"state":"character","items":[{"type":0,"from_state":"name","to_state":"name"}]},{"state":"name","items":[{"type":1,"from_state":"character","to_state":"CHARACTER","count_args":2,"func":"createCharacterWithoutSprites"},{"type":1,"from_state":"end","to_state":"CHARACTER","count_args":2,"func":"createCharacterWithoutSprites"},{"type":0,"from_state":"open","to_state":"{"}]},{"state":"end","items":[{"type":1,"from_state":"eof","to_state":"MAIN","count_args":2,"func":"prepareResult"}]},{"state":"field","items":[{"type":0,"from_state":"equals","to_state":"="}]},{"state":"path","items":[{"type":1,"from_state":"name","to_state":"SPRITE","count_args":3,"func":"createSprite"},{"type":1,"from_state":"close","to_state":"SPRITE","count_args":3,"func":"createSprite"}]},{"state":"=","items":[{"type":0,"from_state":"path","to_state":"path"}]},{"state":"{","items":[{"type":0,"from_state":"name","to_state":"field"}]},{"state":"}","items":[{"type":1,"from_state":"character","to_state":"CHARACTER","count_args":5,"func":"createCharacter"},{"type":1,"from_state":"end","to_state":"CHARACTER","count_args":5,"func":"createCharacter"}]}],
-  "goto":[{"state":"DOWN","items":[{"new_state":"MAIN","name_state":"MAIN"},{"new_state":"CHARACTERS","name_state":"CHARACTERS"},{"new_state":"CHARACTER","name_state":"CHARACTER1"}]},{"state":"CHARACTERS","items":[{"new_state":"CHARACTER","name_state":"CHARACTER2"}]},{"state":"CHARACTER1","items":[{"new_state":"CHARACTER","name_state":"CHARACTER3"}]},{"state":"SPRITES","items":[{"new_state":"SPRITE","name_state":"SPRITE2"}]},{"state":"SPRITE1","items":[{"new_state":"SPRITE","name_state":"SPRITE3"}]},{"state":"{","items":[{"new_state":"SPRITES","name_state":"SPRITES"},{"new_state":"SPRITE","name_state":"SPRITE1"}]}]
+  "tokens": [
+    {
+      "name": "tab",
+      "pattern": "\t"
+    },
+    {
+      "name": "None",
+      "pattern": "[ \n\r]+"
+    },
+    {
+      "name": "colon",
+      "pattern": ":"
+    },
+    {
+      "name": "equals",
+      "pattern": "="
+    },
+    {
+      "name": "character",
+      "pattern": "Character"
+    },
+    {
+      "name": "name",
+      "pattern": "playerName"
+    },
+    {
+      "name": "path",
+      "pattern": "\"[\\w\\d./\\ ]*\""
+    },
+    {
+      "name": "comment",
+      "pattern": "#[\\w\\d ]*#"
+    },
+    {
+      "name": "name",
+      "pattern": "[\\w]+"
+    }
+  ],
+  "actions": [
+    {
+      "state": "DOWN",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "character",
+          "to_state": "character"
+        }
+      ]
+    },
+    {
+      "state": "MAIN",
+      "items": [
+        {
+          "type": 2,
+          "from_state": "eof",
+          "to_state": "ok"
+        }
+      ]
+    },
+    {
+      "state": "CHARACTERS",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "character",
+          "to_state": "character"
+        },
+        {
+          "type": 0,
+          "from_state": "end",
+          "to_state": "end"
+        }
+      ]
+    },
+    {
+      "state": "COMMON_CHAR1",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "CHARACTERS",
+          "count_args": 2,
+          "func": "updateCharacterList"
+        },
+        {
+          "type": 1,
+          "from_state": "end",
+          "to_state": "CHARACTERS",
+          "count_args": 2,
+          "func": "updateCharacterList"
+        }
+      ]
+    },
+    {
+      "state": "COMMON_CHAR2",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "CHARACTERS",
+          "count_args": 1,
+          "func": "createCharacterList"
+        },
+        {
+          "type": 1,
+          "from_state": "end",
+          "to_state": "CHARACTERS",
+          "count_args": 1,
+          "func": "createCharacterList"
+        }
+      ]
+    },
+    {
+      "state": "CHAR_NO_SPRITE",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "COMMON_CHAR",
+          "count_args": 1,
+          "func": "wrapCharacterWithoutSprite"
+        },
+        {
+          "type": 1,
+          "from_state": "end",
+          "to_state": "COMMON_CHAR",
+          "count_args": 1,
+          "func": "wrapCharacterWithoutSprite"
+        }
+      ]
+    },
+    {
+      "state": "CHAR",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "COMMON_CHAR",
+          "count_args": 1,
+          "func": "wrapCharacter"
+        },
+        {
+          "type": 1,
+          "from_state": "end",
+          "to_state": "COMMON_CHAR",
+          "count_args": 1,
+          "func": "wrapCharacter"
+        }
+      ]
+    },
+    {
+      "state": "SPRITES",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "CHAR",
+          "count_args": 4,
+          "func": "createCharacter"
+        },
+        {
+          "type": 0,
+          "from_state": "tab",
+          "to_state": "tab"
+        },
+        {
+          "type": 1,
+          "from_state": "end",
+          "to_state": "CHAR",
+          "count_args": 4,
+          "func": "createCharacter"
+        }
+      ]
+    },
+    {
+      "state": "SPRITE1",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "SPRITES",
+          "count_args": 2,
+          "func": "updateSpriteList"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "SPRITES",
+          "count_args": 2,
+          "func": "updateSpriteList"
+        }
+      ]
+    },
+    {
+      "state": "SPRITE2",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "SPRITES",
+          "count_args": 1,
+          "func": "createSpriteList"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "SPRITES",
+          "count_args": 1,
+          "func": "createSpriteList"
+        }
+      ]
+    },
+    {
+      "state": "character",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "name",
+          "to_state": "name"
+        }
+      ]
+    },
+    {
+      "state": "name",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "CHAR_NO_SPRITE",
+          "count_args": 2,
+          "func": "createCharacterWithoutSprites"
+        },
+        {
+          "type": 1,
+          "from_state": "end",
+          "to_state": "CHAR_NO_SPRITE",
+          "count_args": 2,
+          "func": "createCharacterWithoutSprites"
+        },
+        {
+          "type": 0,
+          "from_state": "colon",
+          "to_state": "colon"
+        },
+        {
+          "type": 0,
+          "from_state": "equals",
+          "to_state": "equals"
+        }
+      ]
+    },
+    {
+      "state": "colon",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "tab",
+          "to_state": "tab"
+        }
+      ]
+    },
+    {
+      "state": "tab",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "name",
+          "to_state": "name"
+        }
+      ]
+    },
+    {
+      "state": "equals",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "path",
+          "to_state": "path"
+        }
+      ]
+    },
+    {
+      "state": "path",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "character",
+          "to_state": "SPRITE",
+          "count_args": 4,
+          "func": "createSprite"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "SPRITE",
+          "count_args": 4,
+          "func": "createSprite"
+        }
+      ]
+    },
+    {
+      "state": "end",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "MAIN",
+          "count_args": 2,
+          "func": "prepareResult"
+        }
+      ]
+    }
+  ],
+  "goto": [
+    {
+      "state": "DOWN",
+      "items": [
+        {
+          "new_state": "MAIN",
+          "name_state": "MAIN"
+        },
+        {
+          "new_state": "CHARACTERS",
+          "name_state": "CHARACTERS"
+        },
+        {
+          "new_state": "COMMON_CHAR",
+          "name_state": "COMMON_CHAR2"
+        },
+        {
+          "new_state": "CHAR",
+          "name_state": "CHAR"
+        },
+        {
+          "new_state": "CHAR_NO_SPRITE",
+          "name_state": "CHAR_NO_SPRITE"
+        }
+      ]
+    },
+    {
+      "state": "CHARACTERS",
+      "items": [
+        {
+          "new_state": "COMMON_CHAR",
+          "name_state": "COMMON_CHAR1"
+        },
+        {
+          "new_state": "CHAR",
+          "name_state": "CHAR"
+        },
+        {
+          "new_state": "CHAR_NO_SPRITE",
+          "name_state": "CHAR_NO_SPRITE"
+        }
+      ]
+    },
+    {
+      "state": "SPRITES",
+      "items": [
+        {
+          "new_state": "SPRITE",
+          "name_state": "SPRITE1"
+        }
+      ]
+    },
+    {
+      "state": "colon",
+      "items": [
+        {
+          "new_state": "SPRITES",
+          "name_state": "SPRITES"
+        },
+        {
+          "new_state": "SPRITE",
+          "name_state": "SPRITE2"
+        }
+      ]
+    }
+  ]
 }

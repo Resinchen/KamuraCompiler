@@ -1,0 +1,66 @@
+MAIN -> LOADLIST ACTIONLIST [MAIN.files = LOADLIST.files; MAIN.chars = LOADLIST.chars; MAIN.actions = ACTIONLIST.actions]
+
+LOADLIST -> LOAD [LOADLIST.chars = [LOAD.char]; LOADLIST.files = [LOAD.file]]
+LOADLIST -> LOADLIST1 LOAD  [LOADLIST.chars = UNION(LOADLIST1.chars, LOAD.char); LOADLIST.files = UNION(LOADLIST1.files, LOAD.file)]
+
+LOAD -> load WHLOAD [LOAD.char = WHLOAD.char; LOAD.file = WHLOAD.file]
+WHLOAD -> character word : label [WHLOAD.char = (word.lexval, label.lexval); WHLOAD.file = None]
+WHLOAD -> image path [WHLOAD.char = None; WHLOAD.file = (image, path.lexval)]
+WHLOAD -> sound path [WHLOAD.char = None; WHLOAD.file = (sound, path.lexval)]
+
+ACTIONLIST -> ACTION [ACTIONLIST.list = [ACTION.action]]
+ACTIONLIST -> ACTIONLIST1 ACTION [ACTIONLIST.list = [ACTIONLIST1.list, ACTION.action]]
+
+ACTION -> SET [ACTION.action = SET.set]
+ACTION -> PLAY [ACTION.action = PLAY.play]
+ACTION -> COMMON_PHRASE [ACTION.action = COMMON_PHRASE.phrase]
+ACTION -> CHOICE [ACTION.action = CHOICE.choice]
+ACTION -> CONDITION [ACTION.action = CONDITION.condition]
+ACTION -> JUMP [ACTION.action = JUMP.jump]
+ACTION -> MARK [ACTION.action = MARK.mark]
+ACTION -> LOADSCENE [ACTION.action = LOADSCENE.next_scene]
+
+SET -> set WHSET [SET.set = (action_type:set, WHSET.type, WHSET.info)]
+WHSET -> background word [WHSET.type = background; WHSET.info = word.lexval]
+WHSET -> text TexT [WHSET.type = text; WHSET.info = TexT.lexval]
+WHSET -> blackout [WHSET.type = blackout; WHSET.info = None]
+
+PLAY -> play WHPLAY [PLAY.play = (action_type:play, WHPLAY.type, WHPLAY.info)]
+WHPLAY -> sound word [WHPLAY.type = sound; WHPLAY.info = word.lexval]
+
+COMMON_PHRASE -> PHRASE_NO_OPTIONS [COMMON_PHRASE.phrase = PHRASE_NO_OPTIONS.phrase]
+COMMON_PHRASE -> PHRASE [COMMON_PHRASE.phrase = PHRASE.phrase]
+
+PHRASE_NO_OPTIONS -> label : TexT [PHRASE_NO_OPTIONS.phrase = (type:phrase, label.lexval, None, TexT.lexval)]
+PHRASE -> label OPTIONS : TexT [PHRASE.phrase = (type:phrase, label.lexval, OPTIONS.opt, TexT.lexval)]
+
+OPTIONS -> ( position , emotion ) [OPTIONS.opt = (pos:position.lexval, em:emotion.lexval)]
+OPTIONS -> ( emotion ) [OPTIONS.opt = (pos:None, em:emotion.lexval)]
+OPTIONS -> ( position ) [OPTIONS.opt = (pos:position.lexval, em:None)]
+
+CHOICE -> choice COMMON_PHRASE VARIANTLIST [CHOICE.choice = (action_type:choice, COMMON_PHRASE.phrase, VARIANTLIST.list)]
+
+VARIANTLIST -> VARIANT [VARIANTLIST.list = [VARIANT.variant]]
+VARIANTLIST -> VARIANTLIST1 VARIANT [VARIANTLIST.list = UNION(VARIANTLIST1.list, VARIANT.variant)]
+
+VARIANT -> \t TexT : EFFECTLIST [VARIANT.variant = (value: TexT.lexval, effects: EFFECTLIST.list)]
+
+EFFECTLIST -> EFFECT [EFFECTLIST.list = [EFFECT.effect]]
+EFFECTLIST -> EFFECTLIST1 , EFFECT [EFFECTLIST.list = UNION(EFFECTLIST1.list, EFFECT.effect)]
+
+EFFECT -> counter_name digit_op digit [EFFECT.effect = (effect_type: change_counter, target: counter_name.lexval, op: digit_operation.lexval, value: digit.lexval)]
+EFFECT -> flag_name = bool [EFFECT.effect = (effect_type: set_flag, target: flag_name.lexval, value: bool.lexval)]
+
+CONDITION -> if PREDICATE JUMP [CONDITION.condition = (action_type:condition, PREDICATE.boollist, JUMP.jump)]
+
+PREDICATE -> flag_name is bool [PREDICATE.boollist = (type: check_flag, target: flag_name.lexval, op: is, value: bool.lexval)]
+PREDICATE -> counter_name comporator_op digit [PREDICATE.boollist = (type: check_counter, target: counter_name.lexval, op: comporator_op.lexval, value: digit.lexval)]
+
+PREDICATE -> PREDICATE1 bool_op PREDICATE2 [PREDICATE.boollist = (left_list: PREDICATE1.boollist; op: bool_op.lexval right_list: PREDICATE2.boollist)] 
+PREDICATE -> not PREDICATE1 [PREDICATE.boollist = (left_list: null; op: not right_list: PREDICATE1.boollist)]
+
+JUMP -> jump mark_name [JUMP.jump = (action_type:jump, mark_name.lexval)]
+
+MARK -> mark mark_name [MARK.mark = (action_type:mark, mark_name.lexval)]
+
+LOADSCENE -> load_scene path [LOADSCENE.loadscene = (action_type:loadscene, path.lexval)]

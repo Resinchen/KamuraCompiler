@@ -80,3 +80,11 @@ class Compiler:
         with open(filepath, "r") as f:
             tokenized = self.parsers[type_file].tokenizer.tokenize(f.read())
         return self.parsers[type_file].parser.parse(tokenized)
+
+
+def get_player_file(actions):
+    player_file = {}
+    for action in actions:
+        if action.type == 'show_choice':
+            for variant in action.variants:
+                player_file.setdefault(variant.effect.conter, 0)

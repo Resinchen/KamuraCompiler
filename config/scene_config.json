@@ -2,7 +2,7 @@
   "tokens": [
     {
       "name": "None",
-      "pattern": "[ \n\t\r]+"
+      "pattern": "[ \n\r]+"
     },
     {
       "name": "comment",
@@ -15,6 +15,14 @@
     {
       "name": "load",
       "pattern": "load"
+    },
+    {
+      "name": "tab",
+      "pattern": "\\t"
+    },
+    {
+      "name": "choice",
+      "pattern": "choice"
     },
     {
       "name": "character",
@@ -65,12 +73,8 @@
       "pattern": "if"
     },
     {
-      "name": "and",
-      "pattern": "and"
-    },
-    {
-      "name": "or",
-      "pattern": "or"
+      "name": "bool_op",
+      "pattern": "(and|or)"
     },
     {
       "name": "not",
@@ -85,24 +89,12 @@
       "pattern": ":"
     },
     {
-      "name": "curly_brackets_open",
-      "pattern": "{"
-    },
-    {
-      "name": "curly_brackets_close",
-      "pattern": "}"
-    },
-    {
       "name": "brackets_open",
       "pattern": "\\("
     },
     {
       "name": "brackets_close",
       "pattern": "\\)"
-    },
-    {
-      "name": "semicolon",
-      "pattern": ";"
     },
     {
       "name": "comma",
@@ -125,7 +117,7 @@
       "pattern": "(true|false)"
     },
     {
-      "name": "bool_op",
+      "name": "comporator_op",
       "pattern": "[<|>]=?"
     },
     {
@@ -145,7 +137,11 @@
       "pattern": "\\'\\w[\\w\\d./\\\\]+\\'"
     },
     {
-      "name": "words",
+      "name": "emotion",
+      "pattern": "\\w_[\\w]+"
+    },
+    {
+      "name": "TexT",
       "pattern": "\"[ \\.\\,\\-\\!\\?\\w\\d\\{\\}<>/`]*\""
     },
     {
@@ -189,7 +185,7 @@
         {
           "type": 0,
           "from_state": "label",
-          "to_state": "label1"
+          "to_state": "label2"
         },
         {
           "type": 0,
@@ -200,6 +196,11 @@
           "type": 0,
           "from_state": "play",
           "to_state": "play"
+        },
+        {
+          "type": 0,
+          "from_state": "choice",
+          "to_state": "choice"
         },
         {
           "type": 0,
@@ -243,6 +244,11 @@
         },
         {
           "type": 0,
+          "from_state": "choice",
+          "to_state": "choice"
+        },
+        {
+          "type": 0,
           "from_state": "if",
           "to_state": "if"
         },
@@ -274,9 +280,67 @@
       "state": "LOAD1",
       "items": [
         {
-          "type": 0,
+          "type": 1,
           "from_state": "load",
-          "to_state": "load"
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "label",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "set",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "LOADLIST",
+          "count_args": 1,
+          "func": "createLoadlist"
         }
       ]
     },
@@ -313,6 +377,13 @@
         },
         {
           "type": 1,
+          "from_state": "choice",
+          "to_state": "LOADLIST",
+          "count_args": 2,
+          "func": "updateLoadlist"
+        },
+        {
+          "type": 1,
           "from_state": "if",
           "to_state": "LOADLIST",
           "count_args": 2,
@@ -338,67 +409,6 @@
           "to_state": "LOADLIST",
           "count_args": 2,
           "func": "updateLoadlist"
-        }
-      ]
-    },
-    {
-      "state": "LOAD3",
-      "items": [
-        {
-          "type": 1,
-          "from_state": "load",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "label",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "set",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "play",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "if",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "jump",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "mark",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
-        },
-        {
-          "type": 1,
-          "from_state": "load_scene",
-          "to_state": "LOADLIST",
-          "count_args": 2,
-          "func": "createLoadlist"
         }
       ]
     },
@@ -406,39 +416,67 @@
       "state": "ACTION1",
       "items": [
         {
-          "type": 0,
+          "type": 1,
           "from_state": "label",
-          "to_state": "label1"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         },
         {
-          "type": 0,
+          "type": 1,
           "from_state": "set",
-          "to_state": "set"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         },
         {
-          "type": 0,
+          "type": 1,
           "from_state": "play",
-          "to_state": "play"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         },
         {
-          "type": 0,
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
+        },
+        {
+          "type": 1,
           "from_state": "if",
-          "to_state": "if"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         },
         {
-          "type": 0,
+          "type": 1,
           "from_state": "jump",
-          "to_state": "jump"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         },
         {
-          "type": 0,
+          "type": 1,
           "from_state": "mark",
-          "to_state": "mark"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         },
         {
-          "type": 0,
+          "type": 1,
           "from_state": "load_scene",
-          "to_state": "load_scene"
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "ACTIONLIST",
+          "count_args": 1,
+          "func": "createActionlist"
         }
       ]
     },
@@ -450,67 +488,6 @@
           "from_state": "label",
           "to_state": "ACTIONLIST",
           "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "set",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "play",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "if",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "jump",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "mark",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "load_scene",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "eof",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "createActionlist"
-        }
-      ]
-    },
-    {
-      "state": "ACTION3",
-      "items": [
-        {
-          "type": 1,
-          "from_state": "label",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
           "func": "updateActionlist"
         },
         {
@@ -523,6 +500,13 @@
         {
           "type": 1,
           "from_state": "play",
+          "to_state": "ACTIONLIST",
+          "count_args": 2,
+          "func": "updateActionlist"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
           "to_state": "ACTIONLIST",
           "count_args": 2,
           "func": "updateActionlist"
@@ -551,13 +535,6 @@
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "ACTIONLIST",
-          "count_args": 2,
-          "func": "updateActionlist"
-        },
-        {
-          "type": 1,
-          "from_state": "eof",
           "to_state": "ACTIONLIST",
           "count_args": 2,
           "func": "updateActionlist"
@@ -584,6 +561,13 @@
         {
           "type": 1,
           "from_state": "play",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromSet"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
           "to_state": "ACTION",
           "count_args": 1,
           "func": "makeActionFromSet"
@@ -651,6 +635,13 @@
         },
         {
           "type": 1,
+          "from_state": "choice",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromPlay"
+        },
+        {
+          "type": 1,
           "from_state": "if",
           "to_state": "ACTION",
           "count_args": 1,
@@ -687,134 +678,230 @@
       ]
     },
     {
-      "state": "PHR",
+      "state": "COMMON_PHRASE1",
       "items": [
         {
           "type": 1,
           "from_state": "label",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "set",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "play",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
-          "type": 0,
-          "from_state": "curly_brackets_open",
-          "to_state": "{"
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "if",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "jump",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "mark",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "load_scene",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         },
         {
           "type": 1,
           "from_state": "eof",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeActionFromCommonPhrase"
         }
       ]
     },
     {
-      "state": "PHRWE",
+      "state": "COMMON_PHRASE2",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "tab",
+          "to_state": "tab"
+        }
+      ]
+    },
+    {
+      "state": "PHRASE",
       "items": [
         {
           "type": 1,
           "from_state": "label",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "set",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "play",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
-          "type": 0,
-          "from_state": "curly_brackets_open",
-          "to_state": "{"
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "if",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "jump",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "mark",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
         },
         {
           "type": 1,
           "from_state": "eof",
-          "to_state": "ACTION",
+          "to_state": "COMMON_PHRASE",
           "count_args": 1,
-          "func": "makeActionFromPhrase"
+          "func": "makeCommonPhraseFromPhrase"
+        }
+      ]
+    },
+    {
+      "state": "PHRASE_NO_OPTIONS",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "label",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "set",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhrase"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "COMMON_PHRASE",
+          "count_args": 1,
+          "func": "makeCommonPhraseFromPhraseNoOptions"
         }
       ]
     },
@@ -844,6 +931,13 @@
         },
         {
           "type": 1,
+          "from_state": "choice",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromChoice"
+        },
+        {
+          "type": 1,
           "from_state": "if",
           "to_state": "ACTION",
           "count_args": 1,
@@ -880,63 +974,70 @@
       ]
     },
     {
-      "state": "VARLE",
+      "state": "CONDITION",
       "items": [
         {
           "type": 1,
           "from_state": "label",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "set",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "play",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "if",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "jump",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "mark",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "load_scene",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         },
         {
           "type": 1,
           "from_state": "eof",
           "to_state": "ACTION",
           "count_args": 1,
-          "func": "makeActionFromVarle"
+          "func": "makeActionFromCondition"
         }
       ]
     },
@@ -960,6 +1061,13 @@
         {
           "type": 1,
           "from_state": "play",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromJump"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
           "to_state": "ACTION",
           "count_args": 1,
           "func": "makeActionFromJump"
@@ -1007,58 +1115,65 @@
         {
           "type": 1,
           "from_state": "label",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "set",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "play",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "CONDITION",
+          "count_args": 3,
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "if",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "jump",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "mark",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         },
         {
           "type": 1,
           "from_state": "eof",
-          "to_state": "VARLE",
+          "to_state": "CONDITION",
           "count_args": 3,
-          "func": "createVarle"
+          "func": "createCondition"
         }
       ]
     },
@@ -1082,6 +1197,13 @@
         {
           "type": 1,
           "from_state": "play",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromMark"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
           "to_state": "ACTION",
           "count_args": 1,
           "func": "makeActionFromMark"
@@ -1143,6 +1265,13 @@
         {
           "type": 1,
           "from_state": "play",
+          "to_state": "ACTION",
+          "count_args": 1,
+          "func": "makeActionFromLoadscene"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
           "to_state": "ACTION",
           "count_args": 1,
           "func": "makeActionFromLoadscene"
@@ -1217,6 +1346,13 @@
         },
         {
           "type": 1,
+          "from_state": "choice",
+          "to_state": "LOAD",
+          "count_args": 2,
+          "func": "createLoad"
+        },
+        {
+          "type": 1,
           "from_state": "if",
           "to_state": "LOAD",
           "count_args": 2,
@@ -1239,13 +1375,6 @@
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "LOAD",
-          "count_args": 2,
-          "func": "createLoad"
-        },
-        {
-          "type": 1,
-          "from_state": "eof",
           "to_state": "LOAD",
           "count_args": 2,
           "func": "createLoad"
@@ -1272,6 +1401,13 @@
         {
           "type": 1,
           "from_state": "play",
+          "to_state": "SET",
+          "count_args": 2,
+          "func": "createSet"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
           "to_state": "SET",
           "count_args": 2,
           "func": "createSet"
@@ -1339,6 +1475,13 @@
         },
         {
           "type": 1,
+          "from_state": "choice",
+          "to_state": "PLAY",
+          "count_args": 2,
+          "func": "createPlay"
+        },
+        {
+          "type": 1,
           "from_state": "if",
           "to_state": "PLAY",
           "count_args": 2,
@@ -1375,113 +1518,464 @@
       ]
     },
     {
-      "state": "VARS",
+      "state": "VARIANTLIST",
       "items": [
         {
           "type": 1,
           "from_state": "label",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
           "from_state": "set",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
           "from_state": "play",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
+          "from_state": "choice",
+          "to_state": "CHOICE",
+          "count_args": 3,
+          "func": "createChoice"
+        },
+        {
+          "type": 0,
+          "from_state": "tab",
+          "to_state": "tab"
+        },
+        {
+          "type": 1,
           "from_state": "if",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
           "from_state": "jump",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
           "from_state": "mark",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         },
         {
           "type": 1,
           "from_state": "eof",
-          "to_state": "PLAY",
-          "count_args": 2,
+          "to_state": "CHOICE",
+          "count_args": 3,
           "func": "createChoice"
         }
       ]
     },
     {
-      "state": "VAR1",
+      "state": "VARIANT1",
       "items": [
         {
           "type": 1,
-          "from_state": "curly_brackets_close",
-          "to_state": "VARLIST",
+          "from_state": "label",
+          "to_state": "VARIANTLIST",
           "count_args": 1,
-          "func": "createVarlist"
+          "func": "createVariantList"
         },
         {
           "type": 1,
-          "from_state": "semicolon",
-          "to_state": "VARLIST",
+          "from_state": "set",
+          "to_state": "VARIANTLIST",
           "count_args": 1,
-          "func": "createVarlist"
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "VARIANTLIST",
+          "count_args": 1,
+          "func": "createVariantList"
         }
       ]
     },
     {
-      "state": "VAR2",
+      "state": "VARIANT2",
       "items": [
         {
           "type": 1,
-          "from_state": "curly_brackets_close",
-          "to_state": "VARLIST",
-          "count_args": 3,
-          "func": "updateVarlist"
+          "from_state": "label",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "set",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "VARIANTLIST",
+          "count_args": 2,
+          "func": "updateVariantList"
         }
       ]
     },
     {
-      "state": "EFF1",
+      "state": "EFFECT1",
       "items": [
         {
           "type": 1,
-          "from_state": "curly_brackets_close",
-          "to_state": "VAR",
-          "count_args": 3,
-          "func": "createVariantSingleEffect"
+          "from_state": "label",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
         },
         {
           "type": 1,
-          "from_state": "semicolon",
-          "to_state": "VAR",
-          "count_args": 3,
-          "func": "createVariantSingleEffect"
+          "from_state": "set",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "counter_name",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "flag_name",
+          "to_state": "EFFECTLIST",
+          "count_args": 1,
+          "func": "createEffectList"
+        }
+      ]
+    },
+    {
+      "state": "EFFECT2",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "label",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "set",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "EFFECTLIST",
+          "count_args": 2,
+          "func": "updateEffectList"
+        }
+      ]
+    },
+    {
+      "state": "EFFECTLIST",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "label",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "set",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "play",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "choice",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "tab",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "if",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "mark",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "load_scene",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
+        },
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "VARIANT",
+          "count_args": 4,
+          "func": "createVariant"
         },
         {
           "type": 0,
@@ -1491,203 +1985,93 @@
       ]
     },
     {
-      "state": "EFF2",
+      "state": "PREDICATE1",
       "items": [
         {
           "type": 1,
-          "from_state": "curly_brackets_close",
-          "to_state": "EFFLIST",
-          "count_args": 3,
-          "func": "createEffectList"
+          "from_state": "counter_name",
+          "to_state": "PREDICATE",
+          "count_args": 2,
+          "func": "createNotPredicate"
         },
         {
           "type": 1,
-          "from_state": "semicolon",
-          "to_state": "EFFLIST",
-          "count_args": 3,
-          "func": "createEffectList"
+          "from_state": "flag_name",
+          "to_state": "PREDICATE",
+          "count_args": 2,
+          "func": "createNotPredicate"
+        },
+                {
+          "type": 1,
+          "from_state": "not",
+          "to_state": "PREDICATE",
+          "count_args": 2,
+          "func": "createNotPredicate"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "PREDICATE",
+          "count_args": 2,
+          "func": "createNotPredicate"
+        },
+        {
+          "type": 0,
+          "from_state": "bool_op",
+          "to_state": "bool_op"
         }
       ]
     },
     {
-      "state": "EFFLIST",
+      "state": "PREDICATE2",
       "items": [
         {
           "type": 1,
-          "from_state": "curly_brackets_close",
-          "to_state": "VAR",
+          "from_state": "counter_name",
+          "to_state": "PREDICATE",
           "count_args": 3,
-          "func": "createVariantMultiEffect"
+          "func": "createPairPredicate"
         },
         {
           "type": 1,
-          "from_state": "semicolon",
-          "to_state": "VAR",
+          "from_state": "flag_name",
+          "to_state": "PREDICATE",
           "count_args": 3,
-          "func": "createVariantMultiEffect"
+          "func": "createPairPredicate"
+        },
+                {
+          "type": 1,
+          "from_state": "not",
+          "to_state": "PREDICATE",
+          "count_args": 3,
+          "func": "createPairPredicate"
+        },
+        {
+          "type": 1,
+          "from_state": "jump",
+          "to_state": "PREDICATE",
+          "count_args": 3,
+          "func": "createPairPredicate"
+        },
+        {
+          "type": 0,
+          "from_state": "bool_op",
+          "to_state": "bool_op"
         }
       ]
     },
     {
-      "state": "COND1",
+        "state": "PREDICATE2",
       "items": [
         {
           "type": 0,
-          "from_state": "jump",
-          "to_state": "jump"
-        },
-        {
-          "type": 0,
-          "from_state": "and",
-          "to_state": "and"
-        },
-        {
-          "type": 0,
-          "from_state": "or",
-          "to_state": "or"
-        }
-      ]
-    },
-    {
-      "state": "COND2",
-      "items": [
-        {
-          "type": 1,
-          "from_state": "jump",
-          "to_state": "COND",
-          "count_args": 3,
-          "func": "createConditionAnd"
-        },
-        {
-          "type": 1,
-          "from_state": "and",
-          "to_state": "COND",
-          "count_args": 3,
-          "func": "createConditionAnd"
-        },
-        {
-          "type": 1,
-          "from_state": "or",
-          "to_state": "COND",
-          "count_args": 3,
-          "func": "createConditionAnd"
-        },
-        {
-          "type": 0,
-          "from_state": "jump",
-          "to_state": "jump"
-        },
-        {
-          "type": 0,
-          "from_state": "and",
-          "to_state": "and"
-        },
-        {
-          "type": 0,
-          "from_state": "or",
-          "to_state": "or"
-        }
-      ]
-    },
-    {
-      "state": "COND3",
-      "items": [
-        {
-          "type": 1,
-          "from_state": "jump",
-          "to_state": "COND",
-          "count_args": 3,
-          "func": "createConditionOr"
-        },
-        {
-          "type": 1,
-          "from_state": "and",
-          "to_state": "COND",
-          "count_args": 3,
-          "func": "createConditionOr"
-        },
-        {
-          "type": 1,
-          "from_state": "or",
-          "to_state": "COND",
-          "count_args": 3,
-          "func": "createConditionOr"
+          "from_state": "bool_op",
+          "to_state": "bool_op"
         },
         {
           "type": 0,
           "from_state": "jump",
           "to_state": "jump"
-        },
-        {
-          "type": 0,
-          "from_state": "and",
-          "to_state": "and"
-        },
-        {
-          "type": 0,
-          "from_state": "or",
-          "to_state": "or"
-        }
-      ]
-    },
-    {
-      "state": "COND4",
-      "items": [
-        {
-          "type": 1,
-          "from_state": "jump",
-          "to_state": "COND",
-          "count_args": 2,
-          "func": "createConditionNot"
-        },
-        {
-          "type": 1,
-          "from_state": "and",
-          "to_state": "COND",
-          "count_args": 2,
-          "func": "createConditionNot"
-        },
-        {
-          "type": 1,
-          "from_state": "or",
-          "to_state": "COND",
-          "count_args": 2,
-          "func": "createConditionNot"
-        },
-        {
-          "type": 0,
-          "from_state": "and",
-          "to_state": "and"
-        },
-        {
-          "type": 0,
-          "from_state": "or",
-          "to_state": "or"
-        }
-      ]
-    },
-    {
-      "state": "OPTIONS",
-      "items": [
-        {
-          "type": 0,
-          "from_state": "colon",
-          "to_state": ":2"
-        }
-      ]
-    },
-    {
-      "state": "VARLIST",
-      "items": [
-        {
-          "type": 0,
-          "from_state": "semicolon",
-          "to_state": ";"
-        },
-        {
-          "type": 0,
-          "from_state": "curly_brackets_close",
-          "to_state": "}"
         }
       ]
     },
@@ -1717,22 +2101,22 @@
         {
           "type": 0,
           "from_state": "word",
-          "to_state": "name1"
+          "to_state": "word1"
         }
       ]
     },
     {
-      "state": "name1",
+      "state": "word1",
       "items": [
         {
           "type": 0,
           "from_state": "colon",
-          "to_state": ":4"
+          "to_state": ":1"
         }
       ]
     },
     {
-      "state": "name2",
+      "state": "word2",
       "items": [
         {
           "type": 1,
@@ -1785,7 +2169,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "WHSET",
           "count_args": 2,
           "func": "createSetBackground"
@@ -1793,7 +2177,7 @@
       ]
     },
     {
-      "state": "name3",
+      "state": "word3",
       "items": [
         {
           "type": 1,
@@ -1846,7 +2230,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "WHPLAY",
           "count_args": 2,
           "func": "createPlaySound"
@@ -1858,8 +2242,8 @@
       "items": [
         {
           "type": 0,
-          "from_state": "words",
-          "to_state": "words2"
+          "from_state": "label",
+          "to_state": "label1"
         }
       ]
     },
@@ -1868,13 +2252,23 @@
       "items": [
         {
           "type": 0,
-          "from_state": "words",
-          "to_state": "words3"
+          "from_state": "TexT",
+          "to_state": "TexT2"
         }
       ]
     },
     {
       "state": ":3",
+      "items": [
+        {
+          "type": 0,
+          "from_state": "TexT",
+          "to_state": "TexT3"
+        }
+      ]
+    },
+    {
+      "state": ":4",
       "items": [
         {
           "type": 0,
@@ -1885,16 +2279,6 @@
           "type": 0,
           "from_state": "counter_name",
           "to_state": "counter_name1"
-        }
-      ]
-    },
-    {
-      "state": ":4",
-      "items": [
-        {
-          "type": 0,
-          "from_state": "label",
-          "to_state": "label2"
         }
       ]
     },
@@ -1974,7 +2358,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "WHLOAD",
           "count_args": 4,
           "func": "createLoadCharacter"
@@ -2052,7 +2436,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "LOADSCENE",
           "count_args": 2,
           "func": "createLoadscene"
@@ -2197,7 +2581,7 @@
         {
           "type": 0,
           "from_state": "word",
-          "to_state": "name3"
+          "to_state": "word3"
         }
       ]
     },
@@ -2227,7 +2611,7 @@
         {
           "type": 0,
           "from_state": "word",
-          "to_state": "name2"
+          "to_state": "word2"
         }
       ]
     },
@@ -2236,8 +2620,8 @@
       "items": [
         {
           "type": 0,
-          "from_state": "words",
-          "to_state": "words1"
+          "from_state": "TexT",
+          "to_state": "TexT1"
         }
       ]
     },
@@ -2295,7 +2679,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "WHSET",
           "count_args": 2,
           "func": "createSetText"
@@ -2303,61 +2687,61 @@
       ]
     },
     {
-      "state": "words2",
+      "state": "TexT1",
       "items": [
         {
           "type": 1,
           "from_state": "label",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
           "from_state": "set",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
           "from_state": "play",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
           "from_state": "if",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
           "from_state": "jump",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
           "from_state": "mark",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "PHR",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         },
         {
           "type": 1,
-          "from_state": "eof",
-          "to_state": "PHR",
+          "from_state": "end",
+          "to_state": "PHRASE_NO_OPTIONS",
           "count_args": 3,
           "func": "createPhraseWithoutOptions"
         }
@@ -2369,70 +2753,70 @@
         {
           "type": 1,
           "from_state": "label",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "set",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "play",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "curly_brackets_open",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "if",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "jump",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "mark",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
           "from_state": "load_scene",
-          "to_state": "PHR",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         },
         {
           "type": 1,
-          "from_state": "eof",
-          "to_state": "PHR",
+          "from_state": "end",
+          "to_state": "PHRASE",
           "count_args": 4,
           "func": "createPhrase"
         }
       ]
     },
     {
-      "state": "words4",
+      "state": "OPTIONS",
       "items": [
         {
           "type": 0,
@@ -2495,7 +2879,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "WHSET",
           "count_args": 1,
           "func": "createSetBlackout"
@@ -2548,87 +2932,6 @@
       ]
     },
     {
-      "state": "{",
-      "items": [
-        {
-          "type": 0,
-          "from_state": "words",
-          "to_state": "words4"
-        }
-      ]
-    },
-    {
-      "state": ";",
-      "items": [
-        {
-          "type": 0,
-          "from_state": "words",
-          "to_state": "words4"
-        }
-      ]
-    },
-    {
-      "state": "}",
-      "items": [
-        {
-          "type": 1,
-          "from_state": "label",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "set",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "play",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "if",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "jump",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "mark",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "load_scene",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        },
-        {
-          "type": 1,
-          "from_state": "eof",
-          "to_state": "VARS",
-          "count_args": 3,
-          "func": "createVariants"
-        }
-      ]
-    },
-    {
       "state": "flag_name1",
       "items": [
         {
@@ -2636,56 +2939,56 @@
           "from_state": "label",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
           "from_state": "set",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
           "from_state": "play",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
           "from_state": "if",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
           "from_state": "jump",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
           "from_state": "mark",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
           "from_state": "load_scene",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "VARS",
           "count_args": 3,
-          "func": "createVariants"
+          "func": "createVariantList"
         }
       ]
     },
@@ -2872,7 +3175,7 @@
       "items": [
         {
           "type": 0,
-          "from_state": "word",
+          "from_state": "emotion",
           "to_state": "emotion2"
         }
       ]
@@ -2996,7 +3299,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "MARK",
           "count_args": 2,
           "func": "createMark"
@@ -3057,7 +3360,7 @@
         },
         {
           "type": 1,
-          "from_state": "eof",
+          "from_state": "end",
           "to_state": "JUMP",
           "count_args": 2,
           "func": "createJump"
@@ -3194,6 +3497,18 @@
           "to_state": "path1"
         }
       ]
+    },
+    {
+      "state": "end",
+      "items": [
+        {
+          "type": 1,
+          "from_state": "eof",
+          "to_state": "MAIN",
+          "count_args": 3,
+          "func": "prepareResult"
+        }
+      ]
     }
   ],
   "goto": [
@@ -3238,20 +3553,24 @@
           "name_state": "PLAY"
         },
         {
-          "new_state": "PHR",
-          "name_state": "PHR"
+          "new_state": "COMMON_PHRASE",
+          "name_state": "COMMON_PHRASE1"
         },
         {
-          "new_state": "PHRWE",
-          "name_state": "PHRWE"
+          "new_state": "PHRASE",
+          "name_state": "PHRASE1"
+        },
+        {
+          "new_state": "PHRASE_NO_OPTIONS",
+          "name_state": "PHRASE_NO_OPTIONS"
         },
         {
           "new_state": "CHOICE",
           "name_state": "CHOICE"
         },
         {
-          "new_state": "VARLE",
-          "name_state": "VARLE"
+          "new_state": "CONDITION",
+          "name_state": "CONDITION"
         },
         {
           "new_state": "JUMP",
@@ -3269,61 +3588,7 @@
     },
     {
       "state": "ACTIONLIST",
-      "items": [
-        {
-          "new_state": "ACTION",
-          "name_state": "ACTION3"
-        },
-        {
-          "new_state": "SET",
-          "name_state": "SET"
-        },
-        {
-          "new_state": "PLAY",
-          "name_state": "PLAY"
-        },
-        {
-          "new_state": "PHR",
-          "name_state": "PHR"
-        },
-        {
-          "new_state": "PHRWE",
-          "name_state": "PHRWE"
-        },
-        {
-          "new_state": "CHOICE",
-          "name_state": "CHOICE"
-        },
-        {
-          "new_state": "VARLE",
-          "name_state": "VARLE"
-        },
-        {
-          "new_state": "JUMP",
-          "name_state": "JUMP1"
-        },
-        {
-          "new_state": "MARK",
-          "name_state": "MARK"
-        },
-        {
-          "new_state": "LOADSCENE",
-          "name_state": "LOADSCENE"
-        }
-      ]
-    },
-    {
-      "state": "LOAD1",
-      "items": [
-        {
-          "new_state": "LOAD",
-          "name_state": "LOAD3"
-        }
-      ]
-    },
-    {
-      "state": "ACTION1",
-      "items": [
+            "items": [
         {
           "new_state": "ACTION",
           "name_state": "ACTION2"
@@ -3337,20 +3602,24 @@
           "name_state": "PLAY"
         },
         {
-          "new_state": "PHR",
-          "name_state": "PHR"
+          "new_state": "COMMON_PHRASE",
+          "name_state": "COMMON_PHRASE1"
         },
         {
-          "new_state": "PHRWE",
-          "name_state": "PHRWE"
+          "new_state": "PHRASE",
+          "name_state": "PHRASE1"
+        },
+        {
+          "new_state": "PHRASE_NO_OPTIONS",
+          "name_state": "PHRASE_NO_OPTIONS"
         },
         {
           "new_state": "CHOICE",
           "name_state": "CHOICE"
         },
         {
-          "new_state": "VARLE",
-          "name_state": "VARLE"
+          "new_state": "CONDITION",
+          "name_state": "CONDITION"
         },
         {
           "new_state": "JUMP",
@@ -3367,25 +3636,29 @@
       ]
     },
     {
-      "state": "PHR",
+      "state": "COMMON_PHRASE1",
       "items": [
         {
-          "new_state": "VARS",
-          "name_state": "VARS"
+          "new_state": "VARIANTLIST",
+          "name_state": "VARIANTLIST"
+        },
+                {
+          "new_state": "VARIANT",
+          "name_state": "VARIANT1"
         }
       ]
     },
     {
-      "state": "PHRWE",
+      "state": "VARIANTLIST",
       "items": [
         {
-          "new_state": "VARS",
-          "name_state": "VARS"
+          "new_state": "VARIANT",
+          "name_state": "VARIANT2"
         }
       ]
     },
     {
-      "state": "COND1",
+      "state": "PREDICATE3",
       "items": [
         {
           "new_state": "JUMP",
@@ -3403,20 +3676,38 @@
       ]
     },
     {
-      "state": ":3",
+      "state": ":4",
       "items": [
         {
-          "new_state": "EFF",
-          "name_state": "EFF1"
+          "new_state": "EFFECT",
+          "name_state": "EFFECT1"
         },
         {
-          "new_state": "EFFLIST",
-          "name_state": "EFFLIST"
+          "new_state": "EFFECTLIST",
+          "name_state": "EFFECTLIST"
         }
       ]
     },
     {
       "state": "label1",
+      "items": [
+        {
+          "new_state": "OPTIONS",
+          "name_state": "OPTIONS"
+        }
+      ]
+    },
+        {
+      "state": "label2",
+      "items": [
+        {
+          "new_state": "OPTIONS",
+          "name_state": "OPTIONS"
+        }
+      ]
+    },
+    {
+      "state": "label3",
       "items": [
         {
           "new_state": "OPTIONS",
@@ -3443,33 +3734,24 @@
       ]
     },
     {
-      "state": "{",
-      "items": [
-        {
-          "new_state": "VAR",
-          "name_state": "VAR1"
-        },
-        {
-          "new_state": "VARLIST",
-          "name_state": "VARLIST"
-        }
-      ]
-    },
-    {
-      "state": ";",
-      "items": [
-        {
-          "new_state": "VAR",
-          "name_state": "VAR2"
-        }
-      ]
-    },
-    {
       "state": ",2",
       "items": [
         {
-          "new_state": "EFF",
-          "name_state": "EFF2"
+          "new_state": "EFFECT",
+          "name_state": "EFFECT2"
+        }
+      ]
+    },
+    {
+      "state": "choice",
+      "items": [
+        {
+          "new_state": "PHRASE",
+          "name_state": "PHRASE"
+        },
+        {
+          "new_state": "PHRASE_NO_OPTIONS",
+          "name_state": "PHRASE_NO_OPTIONS"
         }
       ]
     },
@@ -3477,26 +3759,17 @@
       "state": "if",
       "items": [
         {
-          "new_state": "COND",
-          "name_state": "COND1"
+          "new_state": "PREDICATE",
+          "name_state": "PREDICATE3"
         }
       ]
     },
     {
-      "state": "and",
+      "state": "bool_op",
       "items": [
         {
-          "new_state": "COND",
-          "name_state": "COND2"
-        }
-      ]
-    },
-    {
-      "state": "or",
-      "items": [
-        {
-          "new_state": "COND",
-          "name_state": "COND3"
+          "new_state": "PREDICATE",
+          "name_state": "PREDICATE2"
         }
       ]
     },
@@ -3504,8 +3777,8 @@
       "state": "not",
       "items": [
         {
-          "new_state": "COND",
-          "name_state": "COND4"
+          "new_state": "PREDICATE",
+          "name_state": "PREDICATE1"
         }
       ]
     }

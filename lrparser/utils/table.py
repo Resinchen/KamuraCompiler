@@ -39,8 +39,8 @@ class Table(Generic[R, C, V]):
             r = self.table[row]
             if col in r.keys():
                 return r[col]
-            raise KeyError(col, "->", row)
-        raise KeyError(row, "<-", col)
+            raise KeyError(f"{col} -> {row}")
+        raise KeyError(f"{row} <- {col}")
 
     def _prepare(self, descriptor: TableDescriptor) -> None:
         for row in descriptor:

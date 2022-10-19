@@ -11,17 +11,17 @@ class Tokenizer:
         self._token_types: list[TokenType] = token_types
 
     def tokenize(self, text: str) -> list[Token]:
-        text = text.replace("    ", "\t")
+        text = text.replace('    ', '\t')
         tokens: list[Token] = []
-        while text[self._current_position :] != "":
+        while text[self._current_position :] != '':
             candidate = self._get_token(text[self._current_position :])
-            if candidate.type.name in ("None", "comment"):
+            if candidate.type.name in ('None', 'comment'):
                 continue
             tokens.append(candidate)
         tokens.extend(
             [
-                Token(TokenType("end", re.compile("")), "end"),
-                Token(TokenType("eof", re.compile("")), "eof"),
+                Token(TokenType('end', re.compile('')), 'end'),
+                Token(TokenType('eof', re.compile('')), 'eof'),
             ]
         )
 
@@ -29,7 +29,7 @@ class Tokenizer:
 
     def _get_token(self, sub_string: str) -> Token:
         for token in self._token_types:
-            result: Match = token.pattern.match(sub_string)
+            result: Match | None = token.pattern.match(sub_string)
             if result:
                 value = result.group(0)
                 self._current_position += len(value)
@@ -37,5 +37,5 @@ class Tokenizer:
                 return Token(token, value)
         else:
             raise LRSyntaxError(
-                f"Can`t get token by pos {self._current_position}"
+                f'Can`t get token by pos {self._current_position}'
             )

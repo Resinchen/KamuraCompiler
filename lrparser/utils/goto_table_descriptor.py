@@ -23,8 +23,8 @@ class GotoRowDescriptor(RowDescriptor):
 
     @classmethod
     def from_json(cls, data: dict):
-        items = [GotoColumnDescriptor.from_json(item) for item in data["items"]]
-        return cls(data["state"], items)
+        items = [GotoColumnDescriptor.from_json(item) for item in data['items']]
+        return cls(data['state'], items)
 
 
 class GotoTableDescriptor(TableDescriptor):

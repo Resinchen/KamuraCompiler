@@ -26,12 +26,12 @@ class State:
 class Shift:
     from_state: State
     to_state: State
-    type: str = "SHIFT"
+    type: str = 'SHIFT'
 
     def execute(self, lookahead: Token) -> State:
         new_state: State = self.to_state
         if lookahead.value:
-            new_state.attributes["val"] = lookahead.value
+            new_state.attributes['val'] = lookahead.value
         return new_state
 
 
@@ -39,7 +39,7 @@ class Shift:
 class Finish:
     from_state: State
     to_state: State
-    type: str = "FINISH"
+    type: str = 'FINISH'
 
 
 @dataclass
@@ -48,7 +48,7 @@ class Reduce:
     to_state: State
     count_args: int
     func: Callable[[list[State]], dict[str, Attribute]]
-    type: str = "REDUCE"
+    type: str = 'REDUCE'
 
     def make_reduce(self, args: list[State]) -> State:
         state = State(self.to_state.name)

@@ -20,4 +20,4 @@ class TableDescriptor:
         return self.rows[item]
 
     def __str__(self):
-        return f"{self.__class__.__name__}(rows={self.rows})"
+        return f'{self.__class__.__name__}(rows={self.rows})'

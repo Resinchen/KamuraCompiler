@@ -17,7 +17,7 @@ class ActionType(int, Enum):
 
 
 ReduceFunc = NewType(
-    "ReduceFunc", Callable[[list[State]], dict[str, Attribute]]
+    'ReduceFunc', Callable[[list[State]], dict[str, Attribute]]
 )
 
 
@@ -41,9 +41,9 @@ class ActionRowDescriptor(RowDescriptor):
     @classmethod
     def from_json(cls, data: dict):
         items = [
-            ActionColumnDescriptor.from_json(item) for item in data["items"]
+            ActionColumnDescriptor.from_json(item) for item in data['items']
         ]
-        return cls(data["state"], items)
+        return cls(data['state'], items)
 
 
 class ActionTableDescriptor(TableDescriptor):

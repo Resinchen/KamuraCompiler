@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)file:///Users/a.chernetsov/Desktop/in.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th colspan="5">LR(1) closure table</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Goto</th>
+                <th>Kernel</th>
+                <th>State</th>
+                <th>Closure</th>
+            </tr>
+        </thead>
+        <tbody id="lrClosureTableRows">
+            <tr>
+                <td>DOWN</td>
+                <td></td>
+                <td>{[S' -&gt; .M, $]}</td>
+                <td style="color: blue;">0</td>
+                <td>{[S' -&gt; .M, $]; [M -&gt; .CL, $]; [CL -&gt; .CC, $]; [CL -&gt; .CC CL`, $]; [CC -&gt; .C, $/c]; [CC -&gt; .CNS, $/c]; [C -&gt; .c n : SB, $/c]; [CNS -&gt; .c n, $/c]}</td>
+            </tr>
+            <tr>
+                <td>M1</td>
+                <td>goto(0, M)</td>
+                <td>{<span style="color: green;">[S' -&gt; M., $]</span>}</td>
+                <td style="color: blue;">1</td>
+                <td>{<span style="color: green;">[S' -&gt; M., $]</span>}</td>
+            </tr>
+            <tr>
+                <td>CL1</td>
+                <td>goto(0, CL)</td>
+                <td>{<span style="color: green;">[M -&gt; CL., $]</span>}</td>
+                <td style="color: blue;">2</td>
+                <td>{<span style="color: green;">[M -&gt; CL., $]</span>}</td>
+            </tr>
+            <tr>
+                <td>CC1</td>
+                <td>goto(0, CC)</td>
+                <td>{<span style="color: green;">[CL -&gt; CC., $]</span>; [CL -&gt; CC.CL`, $]}</td>
+                <td style="color: blue;">3</td>
+                <td>{<span style="color: green;">[CL -&gt; CC., $]</span>; [CL -&gt; CC.CL`, $]; [CL` -&gt; .CC CL`, $]; [CL` -&gt; .CC, $]; [CC -&gt; .C, c/$]; [CC -&gt; .CNS, c/$]; [C -&gt; .c n : SB, c/$]; [CNS -&gt; .c n, c/$]}</td>
+            </tr>
+            <tr>
+                <td>C1</td>
+                <td>goto(0, C)</td>
+                <td>{<span style="color: green;">[CC -&gt; C., $/c]</span>}</td>
+                <td style="color: blue;">4</td>
+                <td>{<span style="color: green;">[CC -&gt; C., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>CNS1</td>
+                <td>goto(0, CNS)</td>
+                <td>{<span style="color: green;">[CC -&gt; CNS., $/c]</span>}</td>
+                <td style="color: blue;">5</td>
+                <td>{<span style="color: green;">[CC -&gt; CNS., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>c1</td>
+                <td>goto(0, c)</td>
+                <td>{[C -&gt; c.n : SB, $/c]; [CNS -&gt; c.n, $/c]}</td>
+                <td style="color: blue;">6</td>
+                <td>{[C -&gt; c.n : SB, $/c]; [CNS -&gt; c.n, $/c]}</td>
+            </tr>
+            <tr>
+                <td>CL`1</td>
+                <td>goto(3, CL`)</td>
+                <td>{<span style="color: green;">[CL -&gt; CC CL`., $]</span>}</td>
+                <td style="color: blue;">7</td>
+                <td>{<span style="color: green;">[CL -&gt; CC CL`., $]</span>}</td>
+            </tr>
+            <tr>
+                <td>CC2</td>
+                <td>goto(3, CC)</td>
+                <td>{[CL` -&gt; CC.CL`, $]; <span style="color: green;">[CL` -&gt; CC., $]</span>}</td>
+                <td style="color: blue;">8</td>
+                <td>{[CL` -&gt; CC.CL`, $]; <span style="color: green;">[CL` -&gt; CC., $]</span>; [CL` -&gt; .CC CL`, $]; [CL` -&gt; .CC, $]; [CC -&gt; .C, c/$]; [CC -&gt; .CNS, c/$]; [C -&gt; .c n : SB, c/$]; [CNS -&gt; .c n, c/$]}</td>
+            </tr>
+            <tr>
+                <td>С2</td>
+                <td>goto(3, C)</td>
+                <td>{<span style="color: green;">[CC -&gt; C., $/c]</span>}</td>
+                <td style="color: blue;">4</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>CNS2</td>
+                <td>goto(3, CNS)</td>
+                <td>{<span style="color: green;">[CC -&gt; CNS., $/c]</span>}</td>
+                <td style="color: blue;">5</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>c2</td>
+                <td>goto(3, c)</td>
+                <td>{[C -&gt; c.n : SB, $/c]; [CNS -&gt; c.n, $/c]}</td>
+                <td style="color: blue;">6</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>n1</td>
+                <td>goto(6, n)</td>
+                <td>{[C -&gt; c n.: SB, $/c]; <span style="color: green;">[CNS -&gt; c n., $/c]</span>}</td>
+                <td style="color: blue;">9</td>
+                <td>{[C -&gt; c n.: SB, $/c]; <span style="color: green;">[CNS -&gt; c n., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>CL`2</td>
+                <td>goto(8, CL`)</td>
+                <td>{<span style="color: green;">[CL` -&gt; CC CL`., $]</span>}</td>
+                <td style="color: blue;">10</td>
+                <td>{<span style="color: green;">[CL` -&gt; CC CL`., $]</span>}</td>
+            </tr>
+            <tr>
+                <td>CC3</td>
+                <td>goto(8, CC)</td>
+                <td>{[CL` -&gt; CC.CL`, $]; <span style="color: green;">[CL` -&gt; CC., $]</span>}</td>
+                <td style="color: blue;">8</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>C3</td>
+                <td>goto(8, C)</td>
+                <td>{<span style="color: green;">[CC -&gt; C., $/c]</span>}</td>
+                <td style="color: blue;">4</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>CNS3</td>
+                <td>goto(8, CNS)</td>
+                <td>{<span style="color: green;">[CC -&gt; CNS., $/c]</span>}</td>
+                <td style="color: blue;">5</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>c3</td>
+                <td>goto(8, c)</td>
+                <td>{[C -&gt; c.n : SB, $/c]; [CNS -&gt; c.n, $/c]}</td>
+                <td style="color: blue;">6</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>:1</td>
+                <td>goto(9, :)</td>
+                <td>{[C -&gt; c n :.SB, $/c]}</td>
+                <td style="color: blue;">11</td>
+                <td>{[C -&gt; c n :.SB, $/c]; [SB -&gt; .t SL, $/c]}</td>
+            </tr>
+            <tr>
+                <td>SB1</td>
+                <td>goto(11, SB)</td>
+                <td>{<span style="color: green;">[C -&gt; c n : SB., $/c]</span>}</td>
+                <td style="color: blue;">12</td>
+                <td>{<span style="color: green;">[C -&gt; c n : SB., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>t1</td>
+                <td>goto(11, t)</td>
+                <td>{[SB -&gt; t.SL, $/c]}</td>
+                <td style="color: blue;">13</td>
+                <td>{[SB -&gt; t.SL, $/c]; [SL -&gt; .S, $/c]; [SL -&gt; .S SL`, $/c]; [S -&gt; .f = p, $/c/t]}</td>
+            </tr>
+            <tr>
+                <td>SL1</td>
+                <td>goto(13, SL)</td>
+                <td>{<span style="color: green;">[SB -&gt; t SL., $/c]</span>}</td>
+                <td style="color: blue;">14</td>
+                <td>{<span style="color: green;">[SB -&gt; t SL., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>S1</td>
+                <td>goto(13, S)</td>
+                <td>{<span style="color: green;">[SL -&gt; S., $/c]</span>; [SL -&gt; S.SL`, $/c]}</td>
+                <td style="color: blue;">15</td>
+                <td>{<span style="color: green;">[SL -&gt; S., $/c]</span>; [SL -&gt; S.SL`, $/c]; [SL` -&gt; .t S SL`, $/c]; [SL` -&gt; .t S, $/c]}</td>
+            </tr>
+            <tr>
+                <td>f1</td>
+                <td>goto(13, f)</td>
+                <td>{[S -&gt; f.= p, $/c/t]}</td>
+                <td style="color: blue;">16</td>
+                <td>{[S -&gt; f.= p, $/c/t]}</td>
+            </tr>
+            <tr>
+                <td>SL`1</td>
+                <td>goto(15, SL`)</td>
+                <td>{<span style="color: green;">[SL -&gt; S SL`., $/c]</span>}</td>
+                <td style="color: blue;">17</td>
+                <td>{<span style="color: green;">[SL -&gt; S SL`., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>t2</td>
+                <td>goto(15, t)</td>
+                <td>{[SL` -&gt; t.S SL`, $/c]; [SL` -&gt; t.S, $/c]}</td>
+                <td style="color: blue;">18</td>
+                <td>{[SL` -&gt; t.S SL`, $/c]; [SL` -&gt; t.S, $/c]; [S -&gt; .f = p, t/$/c]}</td>
+            </tr>
+            <tr>
+                <td>=1</td>
+                <td>goto(16, =)</td>
+                <td>{[S -&gt; f =.p, $/c/t]}</td>
+                <td style="color: blue;">19</td>
+                <td>{[S -&gt; f =.p, $/c/t]}</td>
+            </tr>
+            <tr>
+                <td>S2</td>
+                <td>goto(18, S)</td>
+                <td>{[SL` -&gt; t S.SL`, $/c]; <span style="color: green;">[SL` -&gt; t S., $/c]</span>}</td>
+                <td style="color: blue;">20</td>
+                <td>{[SL` -&gt; t S.SL`, $/c]; <span style="color: green;">[SL` -&gt; t S., $/c]</span>; [SL` -&gt; .t S SL`, $/c]; [SL` -&gt; .t S, $/c]}</td>
+            </tr>
+            <tr>
+                <td>f2</td>
+                <td>goto(18, f)</td>
+                <td>{[S -&gt; f.= p, $/c/t]}</td>
+                <td style="color: blue;">16</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>p1</td>
+                <td>goto(19, p)</td>
+                <td>{<span style="color: green;">[S -&gt; f = p., $/c/t]</span>}</td>
+                <td style="color: blue;">21</td>
+                <td>{<span style="color: green;">[S -&gt; f = p., $/c/t]</span>}</td>
+            </tr>
+            <tr>
+                <td>SL`2</td>
+                <td>goto(20, SL`)</td>
+                <td>{<span style="color: green;">[SL` -&gt; t S SL`., $/c]</span>}</td>
+                <td style="color: blue;">22</td>
+                <td>{<span style="color: green;">[SL` -&gt; t S SL`., $/c]</span>}</td>
+            </tr>
+            <tr>
+                <td>t3</td>
+                <td>goto(20, t)</td>
+                <td>{[SL` -&gt; t.S SL`, $/c]; [SL` -&gt; t.S, $/c]}</td>
+                <td style="color: blue;">18</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table border="1" cellpadding="8">
+        <tbody>
+            <tr>
+                <td>
+                    <div id="lrTableView">
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th colspan="20">LR table</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">State</th>
+                                    <th rowspan="1" colspan="8">ACTION</th>
+                                    <th colspan="11">GOTO</th>
+                                </tr>
+                                <tr>
+                                    <th>c</th>
+                                    <th>n</th>
+                                    <th>:</th>
+                                    <th>t</th>
+                                    <th>f</th>
+                                    <th>=</th>
+                                    <th>p</th>
+                                    <th>$</th>
+                                    <th>S'</th>
+                                    <th>M</th>
+                                    <th>CL</th>
+                                    <th>CL`</th>
+                                    <th>CC</th>
+                                    <th>C</th>
+                                    <th>CNS</th>
+                                    <th>SB</th>
+                                    <th>SL</th>
+                                    <th>SL`</th>
+                                    <th>S</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color: blue;">DOWN</td>
+                                    <td><span style="color: blue;">c</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">M</span></td>
+                                    <td><span style="color: blue;">CL</span></td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">CC1</span></td>
+                                    <td><span style="color: blue;">C</span></td>
+                                    <td><span style="color: blue;">CNS</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">M</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: green;">acc</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">CL</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>M -&gt; CL<sub style="color: green;">1</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">CC1</td>
+                                    <td><span style="color: blue;">c</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CL -&gt; CC<sub style="color: green;">2</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">CL`1</span></td>
+                                    <td><span style="color: blue;">CC2</span></td>
+                                    <td><span style="color: blue;">C</span></td>
+                                    <td><span style="color: blue;">CNS</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">C</td>
+                                    <td>CC -&gt; C<sub style="color: green;">6</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CC -&gt; C<sub style="color: green;">6</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">CNS</td>
+                                    <td>CC -&gt; CNS<sub style="color: green;">7</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CC -&gt; CNS<sub style="color: green;">7</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">c</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">n</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">CL`1</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CL -&gt; CC CL`<sub style="color: green;">3</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">CC2</td>
+                                    <td><span style="color: blue;">c</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CL` -&gt; CC<sub style="color: green;">5</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">CL`2</span></td>
+                                    <td><span style="color: blue;">CC2</span></td>
+                                    <td><span style="color: blue;">C</span></td>
+                                    <td><span style="color: blue;">CNS</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">n</td>
+                                    <td>CNS -&gt; c n<sub style="color: green;">9</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">:</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CNS -&gt; c n<sub style="color: green;">9</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">CL`2</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>CL` -&gt; CC CL`<sub style="color: green;">4</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">:</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">t1</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">SB</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">SB</td>
+                                    <td>C -&gt; c n : SB<sub style="color: green;">8</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>C -&gt; c n : SB<sub style="color: green;">8</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">t1</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">f</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">SL</span></td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">S1</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">SL</td>
+                                    <td>SB -&gt; t SL<sub style="color: green;">10</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>SB -&gt; t SL<sub style="color: green;">10</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">S1</td>
+                                    <td>SL -&gt; S<sub style="color: green;">11</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">t2</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>SL -&gt; S<sub style="color: green;">11</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">SL`1</span></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">f</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">=</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">SL`1</td>
+                                    <td>SL -&gt; S SL`<sub style="color: green;">12</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>SL -&gt; S SL`<sub style="color: green;">12</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">t2</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">f</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">S2</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">=</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">p</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">S2</td>
+                                    <td>SL` -&gt; t S<sub style="color: green;">14</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">t2</span></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>SL` -&gt; t S<sub style="color: green;">14</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span style="color: blue;">SL`2</span></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">p</td>
+                                    <td>S -&gt; f = p<sub style="color: green;">15</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>S -&gt; f = p<sub style="color: green;">15</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>S -&gt; f = p<sub style="color: green;">15</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: blue;">SL`2</td>
+                                    <td>SL` -&gt; t S SL`<sub style="color: green;">13</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>SL` -&gt; t S SL`<sub style="color: green;">13</sub></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body></html>

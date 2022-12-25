@@ -1,7 +1,11 @@
+S` -> MAIN
 MAIN -> LOADLIST ACTIONLIST [MAIN.files = LOADLIST.files; MAIN.chars = LOADLIST.chars; MAIN.actions = ACTIONLIST.actions]
 
 LOADLIST -> LOAD [LOADLIST.chars = [LOAD.char]; LOADLIST.files = [LOAD.file]]
-LOADLIST -> LOADLIST1 LOAD  [LOADLIST.chars = UNION(LOADLIST1.chars, LOAD.char); LOADLIST.files = UNION(LOADLIST1.files, LOAD.file)]
+LOADLIST -> LOAD LOADLIST`  [LOADLIST.chars = UNION(LOAD.char, LOADLIST`.chars); LOADLIST.files = UNION(LOAD.file, LOADLIST`.files)]
+
+LOADLIST` -> LOAD [LOADLIST`.chars = [LOAD.char]; LOADLIST`.files = [LOAD.file]]
+LOADLIST` -> LOAD LOADLIST`1  [LOADLIST`.chars = UNION(LOAD.char, LOADLIST`1.chars); LOADLIST.files = UNION(LOAD.file, LOADLIST`1.files)]
 
 LOAD -> load WHLOAD [LOAD.char = WHLOAD.char; LOAD.file = WHLOAD.file]
 WHLOAD -> character word : label [WHLOAD.char = (word.lexval, label.lexval); WHLOAD.file = None]
@@ -9,7 +13,10 @@ WHLOAD -> image path [WHLOAD.char = None; WHLOAD.file = (image, path.lexval)]
 WHLOAD -> sound path [WHLOAD.char = None; WHLOAD.file = (sound, path.lexval)]
 
 ACTIONLIST -> ACTION [ACTIONLIST.list = [ACTION.action]]
-ACTIONLIST -> ACTIONLIST1 ACTION [ACTIONLIST.list = [ACTIONLIST1.list, ACTION.action]]
+ACTIONLIST -> ACTION ACTIONLIST` [ACTIONLIST.list = [ACTION.action, ACTIONLIST`.list]]
+
+ACTIONLIST` -> ACTION [ACTIONLIST`.list = [ACTION.action]]
+ACTIONLIST` -> ACTION ACTIONLIST`1 [ACTIONLIST`.list = [ACTION.action, ACTIONLIST`1.list]]
 
 ACTION -> SET [ACTION.action = SET.set]
 ACTION -> PLAY [ACTION.action = PLAY.play]
@@ -41,7 +48,10 @@ OPTIONS -> ( position ) [OPTIONS.opt = (pos:position.lexval, em:None)]
 CHOICE -> choice COMMON_PHRASE VARIANTLIST [CHOICE.choice = (action_type:choice, COMMON_PHRASE.phrase, VARIANTLIST.list)]
 
 VARIANTLIST -> VARIANT [VARIANTLIST.list = [VARIANT.variant]]
-VARIANTLIST -> VARIANTLIST1 VARIANT [VARIANTLIST.list = UNION(VARIANTLIST1.list, VARIANT.variant)]
+VARIANTLIST -> VARIANT VARIANTLIST` [VARIANTLIST.list = UNION(VARIANT.variant, VARIANTLIST`.list)]
+
+VARIANTLIST` -> VARIANT [VARIANTLIST`.list = [VARIANT.variant]]
+VARIANTLIST` -> VARIANT VARIANTLIST`1 [VARIANTLIST`.list = UNION(VARIANT.variant, VARIANTLIST`1.list)]
 
 VARIANT -> \t TexT : EFFECTLIST [VARIANT.variant = (value: TexT.lexval, effects: EFFECTLIST.list)]
 
@@ -56,8 +66,10 @@ CONDITION -> if PREDICATE JUMP [CONDITION.condition = (action_type:condition, PR
 PREDICATE -> flag_name is bool [PREDICATE.boollist = (type: check_flag, target: flag_name.lexval, op: is, value: bool.lexval)]
 PREDICATE -> counter_name comporator_op digit [PREDICATE.boollist = (type: check_counter, target: counter_name.lexval, op: comporator_op.lexval, value: digit.lexval)]
 
-PREDICATE -> PREDICATE1 bool_op PREDICATE2 [PREDICATE.boollist = (left_list: PREDICATE1.boollist; op: bool_op.lexval right_list: PREDICATE2.boollist)] 
-PREDICATE -> not PREDICATE1 [PREDICATE.boollist = (left_list: null; op: not right_list: PREDICATE1.boollist)]
+PREDICATE -> COMBINATION_PREDICATE [PREDICATE.boollist = COMBINATION_PREDICATE.boollist]
+COMBINATION_PREDICATE -> PREDICATE1 bool_op PREDICATE2 [COMBINATION_PREDICATE.boollist = (left_list: PREDICATE1.boollist; op: bool_op.lexval right_list: PREDICATE2.boollist)]
+PREDICATE -> NOT_PREDICATE [PREDICATE.boollist = NOT_PREDICATE.boollist]
+NOT_PREDICATE -> not PREDICATE [NOT_PREDICATE.boollist = (left_list: null; op: not right_list: PREDICATE.boollist)]
 
 JUMP -> jump mark_name [JUMP.jump = (action_type:jump, mark_name.lexval)]
 

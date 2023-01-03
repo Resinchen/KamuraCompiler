@@ -30,3 +30,5 @@ lint:
 	black --check $(CODE)
 	flake8 $(CODE) --jobs 4 --statistics
 	mypy --install-types --non-interactive $(CODE)
+
+plint: pretty lint

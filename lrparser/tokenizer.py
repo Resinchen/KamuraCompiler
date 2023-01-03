@@ -18,24 +18,17 @@ class Tokenizer:
             if candidate.type.name in ('None', 'comment'):
                 continue
             tokens.append(candidate)
-        tokens.extend(
-            [
-                Token(TokenType('end', re.compile('')), 'end'),
-                Token(TokenType('eof', re.compile('')), 'eof'),
-            ]
-        )
+        tokens.append(Token(TokenType('eof', re.compile('')), 'eof'))
 
         return tokens
 
     def _get_token(self, sub_string: str) -> Token:
         for token in self._token_types:
-            result: Match | None = token.pattern.match(sub_string)
+            result: Match[str] | None = token.pattern.match(sub_string)
             if result:
                 value = result.group(0)
                 self._current_position += len(value)
 
                 return Token(token, value)
         else:
-            raise LRSyntaxError(
-                f'Can`t get token by pos {self._current_position}'
-            )
+            raise LRSyntaxError(f'Can`t get token by pos {self._current_position}')

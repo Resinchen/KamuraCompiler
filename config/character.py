@@ -1,7 +1,6 @@
 from typing import Any
 
 from config.common import (
-    ActionCellDescriptor,
     Config,
     GotoCellDescriptor,
     TokenDesctiptor,
@@ -35,7 +34,16 @@ ROWS = (
     'path',
     'SPRITE_LIST`2',
 )
-COLS_ACTION = ('character', 'name1', 'colon', 'tab', 'name2', 'equals', 'path', 'eof')
+COLS_ACTION = (
+    'character',
+    'name1',
+    'colon',
+    'tab',
+    'name2',
+    'equals',
+    'path',
+    'eof',
+)
 COLS_GOTO = (
     "S'",
     'MAIN',
@@ -264,7 +272,7 @@ def make_action_table():
 
 
 def make_goto_table():
-    goto_table = dict()
+    goto_table: dict[str, dict[str, GotoCellDescriptor | None]] = dict()
     for row in ROWS:
         goto_table[row] = dict({k: None for k in COLS_GOTO})
 

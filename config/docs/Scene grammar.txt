@@ -64,7 +64,7 @@ EFFECT -> flag_name = bool [EFFECT.effect = (effect_type: set_flag, target: flag
 CONDITION -> if PREDICATE JUMP [CONDITION.condition = (action_type:condition, PREDICATE.boollist, JUMP.jump)]
 
 PREDICATE -> flag_name is bool [PREDICATE.boollist = (type: check_flag, target: flag_name.lexval, op: is, value: bool.lexval)]
-PREDICATE -> counter_name comporator_op digit [PREDICATE.boollist = (type: check_counter, target: counter_name.lexval, op: comporator_op.lexval, value: digit.lexval)]
+PREDICATE -> counter_name comparator_op digit [PREDICATE.boollist = (type: check_counter, target: counter_name.lexval, op: comporator_op.lexval, value: digit.lexval)]
 
 PREDICATE -> COMBINATION_PREDICATE [PREDICATE.boollist = COMBINATION_PREDICATE.boollist]
 COMBINATION_PREDICATE -> PREDICATE1 bool_op PREDICATE2 [COMBINATION_PREDICATE.boollist = (left_list: PREDICATE1.boollist; op: bool_op.lexval right_list: PREDICATE2.boollist)]

@@ -2,7 +2,6 @@ import json
 from os import path
 from pathlib import Path
 
-from config import character, scene
 from lrparser import Parser, Tokenizer
 from lrparser.utils.parser import Attribute
 
@@ -16,8 +15,8 @@ class ParserBlock:
 class Compiler:
     def __init__(self):
         self.parsers: dict[str, ParserBlock] = {
-            'char': ParserBlock(character.tokens, character.actions, character.goto),
-            'scene': ParserBlock(scene.tokens, scene.actions, scene.goto),
+            'char': ParserBlock(None, None, None),
+            'scene': ParserBlock(None, None, None),
         }
 
     def build_game(self, game_directory: Path):

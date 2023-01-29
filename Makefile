@@ -22,9 +22,9 @@ init:
 	poetry install
 
 pretty:
-	isort $(CODE)
-	black $(CODE)
-	unify --in-place --recursive $(CODE)
+	isort $(CODE) config
+	black $(CODE) config
+	unify --in-place --recursive $(CODE) config
 
 lint:
 	black --check $(CODE)

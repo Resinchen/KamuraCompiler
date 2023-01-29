@@ -1,22 +1,9 @@
 # Loading #
 load character PlayerName: p
-load character Mary: m
-load character Sister: s
 
-load image 'images/classroom.png'
-load image 'images/street.png'
-load sound 'sounds/bell.ogg'
-
-# Script #
-set background classroom
-set text "Moring. In the classroom"
-p (center, p_simple): "Borring..."
-p (right): "It`s Mary - my classmate"
-m (left, m_happy): "Hello {playerName}!"
-p (p_sadly): "Hi, Mary."
-m (center, m_concerned): "<b>What`s happend?</b>"
-    "Trouble in house...": counter_mary + 1, flag_date_with_mary = true
-    "Not your bisness": counter_mary - 1
+choice m (center, m_concerned): "<b>What`s happend?</b>"
+    "Trouble in house...": [counter_mary + 1], [flag_date_with_mary = true]
+    "Not your bisness": [counter_mary - 1]
 play sound bell
 p: "Lesson is begining. Let`s go to our places"
 
